@@ -1,0 +1,220 @@
+@import "settings";
+
+// SET UP YOUR FORMS IN THIS FILE
+
+// -----------------------------------------------------------
+
+form {
+	&.new_activation,
+	&.end_activation {
+		width: 440px;
+		margin: 0 auto;
+	}
+
+	&.details {
+		width: 880px;
+		margin: 0 auto;
+		@include clearfix;
+	}
+
+	button {
+		margin-top: 20px;
+	}
+}
+
+%input_base {
+	font-family: 'TradeGothicBold';
+	background: -webkit-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+	background: -moz-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+	background: -o-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+	background: -ms-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+	background: linear-gradient(0deg, #0d0d0d 0%, #1a1a1a 100%);
+	@include border-radius(5px);
+	@include box-shadow(rgba(0, 0, 0, 0.5) 0px 2px 0px);
+	width: 100%;
+	border: none;
+}
+
+.input_box {
+	position: relative;
+
+	&--half {
+		postion: relative;
+		float: left;
+		width: 435px;
+
+		&:nth-child(odd) {
+			margin-right: 10px;
+		}
+	}
+}
+
+.radio_box {
+	@extend %input_base;
+	width: 212px;
+	float: left;
+	padding: 20px 20px 16px 20px;
+	text-align: left;
+
+	&:first-child {
+		margin-right: 10px;
+	}
+}
+
+.iradio,
+.icheckbox {
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	background: url(../images/checkbox.png) bottom;
+	margin-right: 5px;
+	vertical-align: middle;
+
+	&.checked {
+		background: url(../images/checkbox.png) top;
+	}
+}
+
+%label_base {
+	font-family: 'TradeGothicBold';
+	font-size: 20px;
+	line-height: 20px;
+	position: relative;
+	width: 100%;
+}
+
+label.text {
+	@extend %label_base;
+	display: inline-block;
+
+	&.active {
+		font-size: 16px;
+	}
+	
+
+	&:before {
+		content: attr(for);
+		display: inline-block;
+	    position: absolute;
+	    left: 20px;
+	    pointer-events: none;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+	    transition: font-size 200ms;
+	    z-index: 999;
+	}
+}
+
+label.radio {
+	@extend %label_base;
+	top: 4px;
+}
+
+label.checkbox {
+	font-family: 'TradeGothicBoldCondensed18';
+	font-size: 18px;
+	color: #f8f4ec;
+	position: relative;
+	top: 3px;
+}
+
+label.textarea {
+	@extend %label_base;
+	display: inline-block;
+
+	&.active {
+		font-size: 16px;
+	}
+	
+
+	&:before {
+		content: attr(for);
+		display: inline-block;
+	    position: absolute;
+	    left: 20px;
+	    pointer-events: none;
+		top: 26px;
+	    z-index: 999;
+	}
+}
+
+input,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"] {
+	padding: 23px 20px 13px 75px;
+	@extend %input_base;
+	font-size: 28px;
+	color: #d6b77d;
+	display: block;
+	margin-bottom: 10px;
+	width: 100%;
+
+	&:focus {
+		border: none;
+		outline: 0;
+	}
+
+	.medium & {
+		padding: 23px 20px 13px 100px;
+	}
+
+	.wide & {
+		padding: 23px 20px 13px 110px;
+	}
+}
+
+input[type="date"],
+input[type="time"] {
+	width: 460px;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=time]::-webkit-inner-spin-button,
+input[type=number]::-webkit-inner-spin-button,
+input[type=date]::-webkit-calendar-picker-indicator,
+input[type=time]::-webkit-calendar-picker-indicator,
+input[type=number]::-webkit-calendar-picker-indicator  {
+    -webkit-appearance: none;
+    display: none;
+}
+
+textarea {
+	@extend %input_base;
+	resize: none;
+	padding: 50px 20px 20px 20px;
+	font-size: 28px;
+	font-family: 'TradeGothicBold';
+	height: 170px;
+	color: #d6b77d;
+
+	&:focus {
+		border: none;
+		outline: 0;
+	}
+}
+
+//Error States
+.parsley-error-list {
+	display: none !important;
+}
+
+input.parsley-error {
+	color: #d70808;
+}
+
+label.errorState {
+	color: #d70808;
+}

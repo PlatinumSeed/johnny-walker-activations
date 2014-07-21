@@ -1,0 +1,85 @@
+//Insert font-face declarations here
+@font-face {
+	font-family: 'TradeGothicBold'; //Bold Condensed 20
+	src: url('fonts/TradeGothicLTStd-BdCn20.eot?') format('eot'), 
+	     url('fonts/TradeGothicLTStd-BdCn20.otf')  format('opentype'),
+	     url('fonts/TradeGothicLTStd-BdCn20.woff') format('woff'), 
+	     url('fonts/TradeGothicLTStd-BdCn20.ttf')  format('truetype'),
+	     url('fonts/TradeGothicLTStd-BdCn20.svg#TradeGothicLTStd-BdCn20') format('svg');
+}
+
+@font-face {
+	font-family: 'TradeGothicBoldExtended';
+	src: url('fonts/TradeGothicLTStd-BoldExt.eot?') format('eot'), 
+	     url('fonts/TradeGothicLTStd-BoldExt.otf')  format('opentype'),
+	     url('fonts/TradeGothicLTStd-BoldExt.woff') format('woff'), 
+	     url('fonts/TradeGothicLTStd-BoldExt.ttf')  format('truetype'),
+	     url('fonts/TradeGothicLTStd-BoldExt.svg#TradeGothicLTStd-BoldExt') format('svg');
+}
+
+@font-face {
+	font-family: 'TradeGothicBoldCondensed18';
+	src: url('fonts/TradeGothicLTStd-Cn18.eot?') format('eot'), 
+	     url('fonts/TradeGothicLTStd-Cn18.otf')  format('opentype'),
+	     url('fonts/TradeGothicLTStd-Cn18.woff') format('woff'), 
+	     url('fonts/TradeGothicLTStd-Cn18.ttf')  format('truetype'),
+	     url('fonts/TradeGothicLTStd-Cn18.svg#TradeGothicLTStd-Cn18') format('svg');
+}
+
+@font-face {
+	font-family: 'TradeGothicExtended';
+	src: url('fonts/TradeGothicLTStd-Extended.eot?') format('eot'), 
+	     url('fonts/TradeGothicLTStd-Extended.otf')  format('opentype'),
+	     url('fonts/TradeGothicLTStd-Extended.woff') format('woff'), 
+	     url('fonts/TradeGothicLTStd-Extended.ttf')  format('truetype'),
+	     url('fonts/TradeGothicLTStd-Extended.svg#TradeGothicLTStd-Extended') format('svg');
+}
+
+// Default Sizing and spacing
+// ------------------------------------------------------------
+
+h1 { 
+	font-family: 'TradeGothicBold';
+	font-size: 70px;	
+	line-height: 70px;
+	text-transform: uppercase;	
+	display: inline-block;
+	margin-bottom: 28px;
+
+	&:after {
+		content: "";
+	    background-color: #dfbd87;
+	    height: 1px;
+	    display: block;
+	    top: -1px;
+	    position: relative;
+	    margin-top: 8px;
+	    width: 120%;
+	    margin-left: -10%;
+	    background: radial-gradient(circle, rgba(214, 180, 134,1) 0%, rgba(214, 180, 134,0) 100%);
+	}				
+} 
+
+h2 {
+	font-family: 'TradeGothicBoldCondensed18';
+	font-size: 26px;
+	line-height: 26px;
+	color: white;
+	margin-bottom: 24px;
+}
+
+h3 {
+	font-family: 'TradeGothicExtended';
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 6px;
+	margin-bottom: 10px;
+}
+			
+
+// Core typography
+// ------------------------------------------------------------
+
+ul {
+	list-style: none;
+}

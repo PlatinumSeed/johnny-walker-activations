@@ -1,0 +1,435 @@
+// Table of Contents
+
+// See mark-down file for how to use compass' rhythm and trailer/leader functions or check the compass documentation
+// -------------------------------------------------------------
+
+// ::Imports pre-render
+	//:: Reset
+	//:: Settings
+	//:: Mixins
+// ::Base styles
+
+
+// ::Imports pre-render. Must be after reset
+// ------------------------------------------------------------
+@import "compass/typography/vertical_rhythm";
+@import "compass/css3";
+@import "compass/utilities";
+@import "libs/reset";
+@import "libs/settings";
+@import "libs/typography";
+@import "libs/page-transitions";
+@import "libs/offscreen_nav";
+@import "libs/forms";
+@import "libs/mixins";
+
+
+/* ::Base styles Almost exclusively single element selectors */
+/* ------------------------------------------------------------ */
+
+html {
+	height: 100%;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	-webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background: url(../images/background.jpg) black no-repeat;
+    background-size: cover;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    color: white;
+}
+
+.logo {
+	position: fixed;
+	top: 46px;
+	@include horizontal-center(173px);
+	height: 49px;
+	background: url(../images/logo.png) no-repeat;
+	z-index: 11;
+}
+
+/* ::Buttons  */
+/* ----------------------------------------------------------- */
+%button_base {
+	font-family: 'TradeGothicBoldExtended';
+	padding: 28px 55px 24px 55px;
+	letter-spacing: 4px;
+	display: inline-block;
+	border: none;
+	@include border-radius(5px);
+	@include box-shadow(#a48856 0px -2px 0px inset);
+	font-size: 15px;
+	line-height: 15px;
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.brown_button {
+	@extend %button_base;
+	color: #4f432e;
+	background: -webkit-linear-gradient(90deg, #c1a46f 0%, #edcc8d 100%);
+	background: -moz-linear-gradient(90deg, #c1a46f 0%, #edcc8d 100%);
+	background: -o-linear-gradient(90deg, #c1a46f 0%, #edcc8d 100%);
+	background: -ms-linear-gradient(90deg, #c1a46f 0%, #edcc8d 100%);
+	background: linear-gradient(0deg, #c1a46f 0%, #edcc8d 100%);
+}
+
+.grey_button {
+	@extend %button_base;
+	color: white;
+	background: -webkit-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: -moz-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: -o-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: -ms-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: linear-gradient(0deg, #212121 0%, #2e2e2e 100%);
+	@include box-shadow(#3b3b3b 0px 2px 0px inset);
+}
+
+.cancel_button {
+	font-family: 'TradeGothicBoldCondensed18';
+	font-size: 22px;
+	color: #d6b77d;
+	text-decoration: none;
+	margin-top: 18px;
+	display: inline-block;
+
+	&:before {
+		content: '';
+		display: inline-block;
+		width: 18px;
+		height: 18px;
+		background: url(../images/close_icon.png);
+		margin-right: 5px;
+	}
+
+	&:hover,
+	&:visited {
+		color: #d6b77d;
+	}
+}
+
+.menu_button {
+	display: inline-block;
+	font-family: 'TradeGothicBold';
+	font-size: 18px;
+	line-height: 18px;
+	color: white;
+	text-transform: uppercase;
+	padding: 19px 20px 14px 20px;
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	z-index: 11;
+	text-decoration: none;
+	border: none;
+	@include border-radius(5px);
+	@include box-shadow(#3b3b3b 0px 2px 0px inset);
+	background: -webkit-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: -moz-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: -o-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: -ms-linear-gradient(90deg, #212121 0%, #2e2e2e 100%);
+	background: linear-gradient(0deg, #212121 0%, #2e2e2e 100%);
+
+	&:after {
+		content: '';
+		width: 20px;
+		height: 14px;
+		display: inline-block;
+		margin-left: 43px;
+		verticle-align: middle;
+		background: url(../images/menu_icon.png);
+	}
+
+	&.close {
+		position: relative;
+		margin-bottom: 37px;
+		margin-top: 40px;
+		top: 0;
+		right: 0;
+
+		&:after {
+			width: 16px;
+			height: 16px;
+			background: url(../images/menu_close_icon.png);
+		}
+	}
+	
+	&:visited,
+	&:hover {
+		color: white;
+	}
+
+	&:active,
+	&:focus {
+		border: none;
+		outline: 0;
+	}
+}
+
+/* ::Menu  */
+/* ----------------------------------------------------------- */
+nav {
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	overflow-y: auto;
+	background: #070707;
+	visibility: hidden;
+	width: 380px;
+	text-align: right;
+	padding-right: 40px;
+
+	&.effeckt-show {
+		visibility: visible;
+	}
+
+	ul {
+		border-top: 1px solid #272727;
+
+		li {
+			border-bottom: 1px solid #272727;
+
+			a {
+				color: white;
+				font-family: 'TradeGothicBold';
+				text-decoration: none;
+				font-size: 24px;
+				line-height: 24px;
+				display: block;
+				padding: 19px 0 14px 0;
+				text-tranform: uppercase;
+			
+				&:visited,
+				&:hover {
+					color: white;
+				}
+			}
+		}
+	}
+}
+
+/* ::Panels  */
+/* ----------------------------------------------------------- */
+section {
+
+	&.panel{
+		width: 98%;
+		min-height: 100%;
+		position: absolute;
+		z-index:2;
+	}
+
+	.content {
+		text-align: center;
+		position: relative;
+		top: 50%;
+		-webkit-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		float: right;
+		width: 100%;
+	}
+}
+
+/* ::Page Specific  */
+/* ----------------------------------------------------------- */
+
+.activation {
+	
+	.button_box {
+		padding-top: 26px;
+	}
+
+	button {
+		min-width: 351px;
+	}
+}
+
+.activation_reports {
+
+	.tableContainer {
+		@include border-radius(5px);
+	}
+
+	.reports_table {
+
+		th {
+			font-family: 'TradeGothicBold';
+			font-size: 18px;
+			line-height: 18px;
+			color: #c59b4e;
+			text-transform: uppercase;
+			padding: 32px 0;
+			border-right: 1px solid #171717;
+			background: -webkit-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+			background: -moz-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+			background: -o-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+			background: -ms-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
+			background: linear-gradient(0deg, #0d0d0d 0%, #1a1a1a 100%);
+		
+			&:last-child {
+				border-right: none;
+			}
+		}
+
+		tr {
+			background: #242424;
+
+			&:nth-child(odd) {
+				background: #1f1f1f;
+			}
+
+			td {
+				padding: 20px 0;
+				color: white;
+				font-size: 20px;
+				line-height: 20px;
+				font-family: 'TradeGothicBoldCondensed18';
+				text-align: center;
+			}
+		}
+	}
+}
+/* ::Footer  */
+/* ----------------------------------------------------------- */
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 45px;
+	width: 100%;
+	overflow-y: auto;
+    overflow-x: hidden;
+	background: url(../images/footer.jpg) white no-repeat center center;
+}
+
+/* ::Scrollable table CSS only :) http://www.imaputz.com/cssStuff/bigFourVersion.html */
+/* ----------------------------------------------------------- */
+
+/* define height and width of scrollable area. Add 16px to width for scrollbar          */
+div.tableContainer {
+	clear: both;
+	height: 320px;
+	overflow: auto;
+	width: 1160px;
+	margin: 0 auto;
+}
+
+/* Reset overflow value to hidden for all non-IE browsers. */
+html>body div.tableContainer {
+	overflow: hidden;
+	width: 1160px
+}
+
+/* define width of table. IE browsers only                 */
+div.tableContainer table {
+	float: left;
+	width: 1144px
+}
+
+/* define width of table. Add 16px to width for scrollbar.           */
+/* All other non-IE browsers.                                        */
+html>body div.tableContainer table {
+	width: 1160px
+}
+
+/* set table header to a fixed position. WinIE 6.x only                                       */
+/* In WinIE 6.x, any element with a position property set to relative and is a child of       */
+/* an element that has an overflow property set, the relative value translates into fixed.    */
+/* Ex: parent element DIV with a class of tableContainer has an overflow property set to auto */
+thead.fixedHeader tr {
+	position: relative
+}
+
+/* set THEAD element to have block level attributes. All other non-IE browsers            */
+/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+html>body thead.fixedHeader tr {
+	display: block
+}
+/* define the table content to be scrollable                                              */
+/* set TBODY element to have block level attributes. All other non-IE browsers            */
+/* this enables overflow to work on TBODY element. All other non-IE, non-Mozilla browsers */
+/* induced side effect is that child TDs no longer accept width: auto                     */
+html>body tbody.scrollContent {
+	display: block;
+	height: 320px;
+	overflow: auto;
+	width: 100%
+}
+
+/* define width of TH elements: 1st, 2nd, and 3rd respectively.          */
+/* Add 16px to last TH for scrollbar padding. All other non-IE browsers. */
+/* http://www.w3.org/TR/REC-CSS2/selector.html#adjacent-selectors        */
+html>body thead.fixedHeader th {
+	width: 240px;
+	text-align: center;
+
+	&:first-child {
+		width: 450px;
+		text-align: left;
+		padding-left: 30px;
+	}
+
+	&:last-child {
+		width: 256px;
+	}
+}
+
+html>body tbody.scrollContent td {
+	width: 330px;
+	text-align: center;
+
+	&:first-child {
+		width: 600px;
+		text-align: left;
+		padding-left: 30px;
+	}
+
+	&:last-child {
+		width: 256px;
+	}
+}
+
+/* ::Games  */
+/* ----------------------------------------------------------- */
+
+.game {
+	padding-top: 95px;
+}
+
+.game_title {
+	font-family: 'TradeGothicBold';
+	font-size: 36px;
+	line-height: 36px;
+	color: #caaa72;
+	text-transform: uppercase;
+	display: block;
+	margin-bottom: 14px;
+	@include text-shadow(#000000 0px 2px 2px);
+
+	&:after {
+		content: '';
+		display: block;
+		width: 309px;
+		height: 12px;
+		margin: 0 auto;
+		background: url(../images/game_title_underline.png)
+	}
+}
+
+.game_instructions {
+	font-family: 'TradeGothicBoldCondensed18';
+	font-size: 23px;
+	color: white;
+	display: block;
+}
+

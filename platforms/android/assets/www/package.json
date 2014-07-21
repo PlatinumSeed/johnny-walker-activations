@@ -1,0 +1,24 @@
+{
+  "name": "HTML",
+  "version": "1.0.0",
+  "description": "Description Here!",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Riaan Laubscher",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "c7b5187d9e1062a04873dedc220f902071c7c69b",
+  "bugs": {
+    "url": "https://github.com/PlatinumSeed/sassaparilla-mashup/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-compass": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
