@@ -21,6 +21,7 @@
 @import "libs/page-transitions";
 @import "libs/forms";
 @import "libs/mixins";
+@import "libs/animations";
 
 
 /* ::Base styles Almost exclusively single element selectors */
@@ -140,6 +141,26 @@ nav {
 		}
 	}
 }
+
+.loading {
+	@include verticle-center(90px);
+  	@include horizontal-center(270px);
+  	padding: 20px;
+  	@include border-radius(5px);
+  	border: 1px solid black;
+  	background: black;
+  	position: absolute;
+  	@include opacity(0.8);
+  	z-index: 11;
+  	display: none;
+
+  	.loading_text {
+  		color: white;
+  		font-family: 'TradeGothicBold';
+  		font-size: 24px;
+  	}
+}
+
 
 /* ::Panels  */
 /* ----------------------------------------------------------- */

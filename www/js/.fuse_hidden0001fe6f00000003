@@ -83,7 +83,6 @@ function contact(data, activation_id) {
 };
 
 
-
 var app = {
     //Variables
     //Game 2 answer records
@@ -92,9 +91,10 @@ var app = {
     game2Active: true,
     //Modals
     currentContact: [],
+    //API
+    api_url: 'http://jwserver.dev/api/v1/',
     // Application Constructor
     initialize: function() {
-        //Init event binding
         this.bindEvents();
 
         //Reset past activation
@@ -167,20 +167,13 @@ var app = {
     //Database Section
     //----------------------------------------------------------------------------------------------------------------------
     createDB: function(tx) {
-        db.transaction(this.structureDB, this.errorDB, this.syncWatch);
+        db.transaction(this.structureDB, this.errorDB, this.successDB);
     },
-    syncWatch: function() {
-        var api_data = {
-                api_url: 'http://jwserver.dev/api/v1',
-                tablesToSync: [
-                    {tableName : 'activations'},
-                    {tableName : 'contacts'}
-                ],
-                db_name: 'JohnnyWalkerRedActivation',
-                sync_info: 'riaan@platinumseed.com'
-            } 
-        //Init WebSync
-        DBSYNC.initSync(api_data.tablesToSync, db, api_data.sync_info, api_data.api_url, function(){});
+    destroyDB: function() {
+        db.transaction(function (tx) {
+            tx.executeSql('DROP TABLE activations');
+            tx.executeSql('DROP TABLE contacts');
+        }, this.errorDB, this.successDB);
     },
     structureDB: function(tx) {
         tx.executeSql('CREATE TABLE IF NOT EXISTS activations( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, venue TEXT NOT NULL, date_time TEXT NOT NULL, attendance INTEGER, additional_comments TEXT, game1_total INTEGER, game1_wins INTEGER, game2_total INTEGER, game2_wins INTEGER, game3_total INTEGER,  game3_wins INTEGER)');
@@ -338,11 +331,9 @@ var app = {
     //Data Sync
     //----------------------------------------------------------------------------------------------------------------------
     dataSync: function() {
-        DBSYNC.syncNow(function(){}, function(result) {
-            if (result.syncOK === true) {
-                console.log('sync ok');
-            }
-        });
+        $('.loading').show();
+        //this.getTable('activations', true);
+        this.getTable('contacts', true);
     },
     serverSync: function(table, data) {
         var that = this,
