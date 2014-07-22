@@ -1562,6 +1562,10 @@ input[type="tel"], textarea {
   background: url(../images/checkbox.png) top;
 }
 
+.check_box {
+  min-height: 44px;
+}
+
 label.text, label.radio, label.textarea {
   font-family: 'TradeGothicBold';
   font-size: 20px;
@@ -1600,6 +1604,10 @@ label.checkbox {
   color: #f8f4ec;
   position: relative;
   top: 3px;
+  display: inline-block;
+  width: 398px;
+  vertical-align: middle;
+  text-align: left;
 }
 
 label.textarea {
@@ -1955,7 +1963,7 @@ section .content {
   padding-top: 26px;
 }
 .activation button {
-  min-width: 351px;
+  min-width: 475px;
 }
 
 .activation_reports .table_header__item, .activation_reports .table_body .table_row__item {
@@ -2045,12 +2053,9 @@ footer {
   width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  background: url(../images/footer.jpg) white no-repeat center center;
+  background: url(../images/footer-portuguese.jpg) white no-repeat center center;
 }
 
-/* ::Scrollable table CSS only :) http://www.imaputz.com/cssStuff/bigFourVersion.html */
-/* ----------------------------------------------------------- */
-/* define height and width of scrollable area. Add 16px to width for scrollbar          */
 /* ::Game1  */
 /* ----------------------------------------------------------- */
 .game {
@@ -2100,13 +2105,13 @@ footer {
   position: relative;
 }
 .game1_stage ul li.image1 {
-  background: url(../images/game1_image1.png) no-repeat center bottom;
+  background: url(../images/game1_image1_portuguese.png) no-repeat center bottom;
 }
 .game1_stage ul li.image2 {
   background: url(../images/game1_image2.png) no-repeat center bottom;
 }
 .game1_stage ul li.image3 {
-  background: url(../images/game1_image3.png) no-repeat center bottom;
+  background: url(../images/game1_image3_portuguese.png) no-repeat center bottom;
 }
 .game1_stage ul li .order {
   font-family: 'TradeGothicBold';
