@@ -61,25 +61,30 @@ function activation(data) {
         this.date_time = null;
     }
     this.additional_comments = typeof data.additional_comments !== 'undefined' ? data.additional_comments : null;
+    this.attendance  = 0
     this.game1_total = 0;
-    this.game1_wins = 0;
+    this.game1_wins  = 0;
     this.game2_total = 0;
-    this.game2_wins = 0;
+    this.game2_wins  = 0;
     this.game3_total = 0;
-    this.game3_wins = 0;
+    this.game3_wins  = 0;
+    this.synced      = 0;
 };
 
 function contact(data, activation_id) {
-    this.id = null;
-    this.first_name       = typeof data.first_name !== 'undefined' ? data.first_name : null;
-    this.last_name        = typeof data.last_name !== 'undefined' ? data.last_name : null;
-    this.email            = typeof data.email !== 'undefined' ? data.email : null;
-    this.mobile_number    = typeof data.mobile_number !== 'undefined' ? data.mobile_number : null;
-    this.gender           = typeof data.gender !== 'undefined' ? data.gender : null;
-    this.twitter_handle   = typeof data.twitter_handle !== 'undefined' ? data.twitter_handle : null;
-    this.newletter_signup = typeof data.newletter_signup !== 'undefined' ? data.newletter_signup : null;
-    this.activation_id    = typeof activation_id !== 'undefined' ? activation_id : null;
+    this.id                = null;
+    this.first_name        = typeof data.first_name !== 'undefined' ? data.first_name : null;
+    this.last_name         = typeof data.last_name !== 'undefined' ? data.last_name : null;
+    this.email             = typeof data.email !== 'undefined' ? data.email : null;
+    this.mobile_number     = typeof data.mobile_number !== 'undefined' ? data.mobile_number : null;
+    this.gender            = typeof data.gender !== 'undefined' ? data.gender : null;
+    this.twitter_handle    = typeof data.twitter_handle !== 'undefined' ? data.twitter_handle : null;
+    this.newsletter_signup = typeof data.newsletter_signup !== 'undefined' ? data.newsletter_signup : null;
+    this.activation_id     = typeof activation_id !== 'undefined' ? activation_id : null;
+    this.game_result       = null;
+    this.synced            = 0;
 };
+
 
 
 var app = {
@@ -88,11 +93,19 @@ var app = {
     answersCorrect: 0,
     answersIncorrect: 0,
     game2Active: true,
+    //API
+    api_url: 'http://jwserver.dev/api/v1',
     //Modals
-    currentActivation: [],
     currentContact: [],
     // Application Constructor
     initialize: function() {
+        //Init the DB
+        this.createDB();
+
+        //Uncomment to Destroy the DB
+        //this.destroyDB();
+
+        //Init event binding
         this.bindEvents();
 
         //Reset past activation
@@ -105,11 +118,7 @@ var app = {
         this.initSortable();
 
         //Game 3 answer selection
-        this.answerSelect();
-
-        //Init the DB
-        this.createDB();
-        
+        this.answerSelect();    
     },
     // Bind Event Listeners
     //
@@ -121,7 +130,7 @@ var app = {
         window.addEventListener('load', function() {
             FastClick.attach(document.body);
         }, false);
-        
+
         //Bind event on tapping action item
         that = this;
         $(document.body).on('click', '.action', function(event) {
@@ -131,46 +140,17 @@ var app = {
             that[$(this).data('action')](event);
         });
 
+        //Page change event
+        $(document.body).on('pageChange', function(event, page){
+            that.onPageChange(event, page);
+        });
+
         //Form label effects
         $('form').on('focus', 'input, textarea', this.focusInputActive);
         $('form').on('blur', 'input, textarea', this.blurInputActive);
 
-        var that = this;
         //Game2 option selections
-        $(document.body).on('click tap', '.game2_checkboxes li.open', function(){
-            if (that.game2Active) {
-                if ($(this).hasClass('correct')) {
-                    $(this).addClass('checked').removeClass('open');
-                    that.answersCorrect++;
-                    if (that.answersCorrect == 3) {
-                        //Win
-                        that.game2Active = false;
-                        console.log('Done with game 2, you won');
-                        that.currentActivation.game2_total++;
-                        that.currentActivation.game2_wins++;
-                        that.updateGameResults('2');
-                        $('.splash.win').fadeIn();
-                        //$('.submit_game2').data('action', 'game2Win').show();
-                    }
-                }
-                if ($(this).hasClass('incorrect')) {
-                    $(this).addClass('checked').removeClass('open');
-                    that.answersIncorrect++
-                    if (that.answersIncorrect == 2) {
-                        //Lose
-                        that.game2Active = false;
-                        console.log('Done with game 2, you loose');
-                        that.currentActivation.game2_total++;
-                        that.updateGameResults('2');
-                        $('.splash.loose').fadeIn();
-                        //$('.submit_game2').data('action', 'game2Loose').show();
-                    }
-                }   
-            }
-        });
-
-        //Native date and time picker
-        //$(document.body).on('focus', 'input[type="time"]', this.openTimePicker);
+        $(document.body).on('click tap', '.game2_checkboxes li.open', this.submitGame2);
 
         //Game3 slider events
         $( '.cycle-slideshow' ).on( 'cycle-before', function( event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag ) {
@@ -188,23 +168,18 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        
+        document.addEventListener("showkeyboard", function(){ $('.logo, footer').hide(); }, false);
+        document.addEventListener("hidekeyboard", function(){ $('.logo, footer').show();}, false);
     },
 
     //Database Section
     //----------------------------------------------------------------------------------------------------------------------
     createDB: function(tx) {
-        db.transaction(this.structureDB, this.errorDB, this.successDB);
-    },
-    destroyDB: function() {
-        db.transaction(function (tx) {
-            tx.executeSql('DROP TABLE activations');
-            tx.executeSql('DROP TABLE contacts');
-        }, this.errorDB, this.successDB);
+        db.transaction(this.structureDB, this.errorDB, this.syncWatch);
     },
     structureDB: function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS activations( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, venue TEXT NOT NULL, date_time TEXT NOT NULL, attendance INTEGER, additional_comments TEXT, game1_total INTEGER, game1_wins INTEGER, game2_total INTEGER, game2_wins INTEGER, game3_total INTEGER,  game3_wins INTEGER)');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS contacts ( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL, mobile_number TEXT NOT NULL, gender TEXT NOT NULL, twitter_handle TEXT, newletter_signup TEXT, activation_id INTEGER, game_result TEXT )');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS activations( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, venue TEXT NOT NULL, date_time TEXT NOT NULL, attendance INTEGER, additional_comments TEXT, game1_total INTEGER, game1_wins INTEGER, game2_total INTEGER, game2_wins INTEGER, game3_total INTEGER,  game3_wins INTEGER, synced INTEGER)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS contacts ( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL, mobile_number TEXT NOT NULL, gender TEXT NOT NULL, twitter_handle TEXT, newsletter_signup TEXT, activation_id INTEGER, game_result TEXT, synced INTEGER)');
     },
     createActivation: function(event){
         //Validation
@@ -227,6 +202,8 @@ var app = {
         //Set venue of activation on front end
         $('.activation_venue').html(this.currentActivation.venue);
         $('.activation_date').html(this.currentActivation.date_time);
+        //Set activation state to open
+        this.currentActivation.activation_open = true;
         //Go to activation management page
         EffecktPageTransitions.transitionPage( 'activation', 'slide-from-right', 'slide-to-left' );
     },
@@ -234,7 +211,7 @@ var app = {
         var that = this;
         db.transaction(function(tx){
             tx.executeSql(
-                'INSERT INTO activations (venue, date_time, attendance, game1_total, game1_wins, game2_total, game2_wins, game3_total, game3_wins) VALUES ("'+that.currentActivation.venue+'", "'+that.currentActivation.date_time+'", "0", "0", "0", "0", "0", "0", "0")',
+                'INSERT INTO activations (venue, date_time, attendance, game1_total, game1_wins, game2_total, game2_wins, game3_total, game3_wins, synced) VALUES ("'+that.currentActivation.venue+'", "'+that.currentActivation.date_time+'", "0", "0", "0", "0", "0", "0", "0", "0")',
                 [],
                 function(tx, results) {
                     that.currentActivation.id = results.insertId;
@@ -271,7 +248,7 @@ var app = {
         var that = this;
         db.transaction(function(tx){
             tx.executeSql(
-                'INSERT INTO contacts (first_name, last_name, email, mobile_number, gender, twitter_handle, newletter_signup, activation_id) VALUES ("'+that.currentContact.first_name+'", "'+that.currentContact.last_name+'", "'+that.currentContact.email+'", "'+that.currentContact.mobile_number+'", "'+that.currentContact.gender+'", "'+that.currentContact.twitter_handle+'", "'+that.currentContact.newletter_signup+'", "'+that.currentContact.activation_id+'")',
+                'INSERT INTO contacts (first_name, last_name, email, mobile_number, gender, twitter_handle, newsletter_signup, activation_id, synced) VALUES ("'+that.currentContact.first_name+'", "'+that.currentContact.last_name+'", "'+that.currentContact.email+'", "'+that.currentContact.mobile_number+'", "'+that.currentContact.gender+'", "'+that.currentContact.twitter_handle+'", "'+that.currentContact.newsletter_signup+'", "'+that.currentContact.activation_id+'", "0")',
                 [],
                 function(tx, results) {
                     that.currentContact.id = results.insertId;
@@ -284,28 +261,12 @@ var app = {
         game_wins = this.currentActivation['game'+game_number+'_wins'];
 
         sqlStatement = 'UPDATE activations SET game'+game_number+'_total="'+game_total+'", game'+game_number+'_wins="'+game_wins+'" WHERE id='+this.currentActivation.id;
+        sqlStatement2 = 'UPDATE contacts SET game_result="'+this.currentContact.game_result+'" WHERE id='+this.currentContact.id;
         
         db.transaction(function(tx){
             tx.executeSql(sqlStatement);
+            tx.executeSql(sqlStatement2);
         }, this.errorDB, this.resetGame(game_number));
-    },
-    getAllActivations: function(){
-        var sqlStatement = 'SELECT * FROM activations',
-            that = this;
-        
-        db.transaction(function (tx) {
-            tx.executeSql(sqlStatement, [], function (tx, results) {
-                var len = results.rows.length, i;
-                if (len > 0) {
-                    that.buildResultsTable(results);
-                    EffecktPageTransitions.transitionPage( 'activation_reports', 'slide-from-bottom', 'slide-to-top' );
-                }
-                else {
-                    alert('There are currently no activations');
-                }
-                
-            });
-        });
     },
     endActivation: function(event) {
         var that = this;
@@ -330,9 +291,45 @@ var app = {
             tx.executeSql(sqlStatement);
         }, that.errorDB, function(){
             that.initActivation();
+            //Unset current activation
+            delete that.currentActivation;
             EffecktPageTransitions.transitionPage( 'new_activation', 'scale-up-from-behind', 'scale-up-to-front' );
             that.resetform('end_activation');
         });
+    },
+    getTable: function(table, sync) {
+        table = typeof table !== 'object' ? table : 'activations';
+        sync = typeof sync !== 'undefined' ? sync : false;
+
+        var sqlStatement = 'SELECT * FROM ' + table,
+            that = this;
+
+        db.transaction(function (tx) {
+            tx.executeSql(sqlStatement, [], function (tx, results) {
+                var len = results.rows.length, i;
+
+                if (len > 0) {
+                    if (sync) {
+                        that.serverSync(table, results);
+                    }
+                    else {
+                        that.buildResultsTable(results);
+                        EffecktPageTransitions.transitionPage( 'activation_reports', 'slide-from-bottom', 'slide-to-top' );
+                    }
+                    
+                }
+                else {
+                    alert('There are currently no activations');
+                }
+                
+            });
+        });
+    },
+    destroyDB: function() {
+        db.transaction(function (tx) {
+            tx.executeSql('DROP TABLE activations');
+            tx.executeSql('DROP TABLE contacts');
+        }, this.errorDB, this.successDB);
     },
     errorDB: function(err) {
         alert("Error processing SQL: "+err.message);
@@ -340,13 +337,82 @@ var app = {
     successDB: function() {
         console.log('db success');
     },
+
+    //Data Sync
+    //----------------------------------------------------------------------------------------------------------------------
+    dataSync: function() {
+        $('.loading').show();
+        //Get All Data that has not yet been synced
+        var sqlStatement1 = 'SELECT * FROM activations WHERE synced=0',
+            sqlStatement2 = 'SELECT * FROM contacts WHERE synced=0',
+            activationsToSync = [],
+            contactsToSync = [],
+            syncData = {info: 'riaan@platinumseed.com'},
+            that = this;
+
+
+        db.transaction(function(tx){
+            tx.executeSql(
+                sqlStatement1,[],
+                function(tx, results) {
+                    activationsToSync = that.convertResults(results);
+                    console.log(activationsToSync)
+                    syncData.activations = activationsToSync;
+                }
+            );
+            tx.executeSql(
+                sqlStatement2,[],
+                function(tx, results) {
+                    contactsToSync = that.convertResults(results);
+                    console.log(contactsToSync)
+                    syncData.contacts    = contactsToSync;
+                }
+            );
+        }, that.errorDB, function(){
+            //Check if theres anything to sync
+            if (syncData.activations.length > 0 || syncData.contacts.length > 0) {
+                //Send data to the server
+                $.ajax({
+                    type: 'post',
+                    url: that.api_url,
+                    data: syncData,
+                    processData: false,
+                    beforeSend: function (jqXHR, settings) {
+                        jqXHR.activation = settings.data;
+                        settings.data = jQuery.param(settings.data, false);
+                    },
+                    success: function(result, textStatus, jqXHR) {
+                        console.log(result);
+                        //Mark All data as synced
+                        sqlStatement   = 'UPDATE activations SET synced=1 WHERE synced=0';
+                        sqlStatement2  = 'UPDATE contacts SET synced=1 WHERE synced=0';
+                        db.transaction(function(tx){
+                            tx.executeSql(sqlStatement);
+                            tx.executeSql(sqlStatement2);
+                        }, that.errorDB, that.successDB);
+                        $('.loading').hide();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        alert('There was a problem syncing your data, please check your internet connection and try again');
+                        $('.loading').hide();
+                    }
+                });
+            }
+            else {
+                console.log('Your activations are already in sync');
+                $('.loading').hide();
+            };
+            
+        });     
+    },
     
     //Housekeeping
     //----------------------------------------------------------------------------------------------------------------------
     resetform: function(form_class) { //Reset the form (specified by form_class) values
-        $("."+form_class+" input").each(function(){
+        $("."+form_class+" input, ."+form_class+" textarea").each(function(){
             $(this).val('');
-            if ($(this).attr('type') == 'checkbox') {
+            if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio') {
                 $(this).iCheck('uncheck');
             }
         })
@@ -375,10 +441,25 @@ var app = {
             return false;
         }
     },
+    //Convert Websql to JSON
+    convertResults: function(resultset) {
+        var results = [];
+        for(var i=0,len=resultset.rows.length;i<len;i++) {
+            var row = resultset.rows.item(i);
+            var result = {};
+            for(var key in row) {
+                result[key] = row[key];
+            }
+            results.push(result);
+        }
+        return results;
+    },
 
     //UI section
     //----------------------------------------------------------------------------------------------------------------------
     initActivation: function() {
+        $(document.body).trigger('pageChange', 'new_activation');
+
         var currentdate = new Date();
         var date = currentdate.getFullYear()+'-'+('0' + (currentdate.getMonth()+1)).slice(-2)+'-'+('0' + currentdate.getDate()).slice(-2);
         var time = ('0' + currentdate.getHours()).slice(-2)+':'+('0' + currentdate.getMinutes()).slice(-2);
@@ -478,6 +559,22 @@ var app = {
             currentField.blur();
         });
     },
+    onPageChange: function(event, page) {
+        //Hide sync button if activation is active
+        if (typeof this.currentActivation === 'undefined') {
+            $('.menu_sync').show()
+        }
+        else {
+            $('.menu_sync').hide();
+        };
+        //Hide menu for client facing pages
+        if (page == 'new_activation' || page =='activation') {
+            $('.menu_open').show();
+        }
+        else {
+            $('.menu_open').hide();
+        };
+    },
 
     //Game stuff
     //----------------------------------------------------------------------------------------------------------------------
@@ -496,15 +593,48 @@ var app = {
             console.log('Done with game 1, you won');
             this.currentActivation.game1_total++;
             this.currentActivation.game1_wins++;
+            this.currentContact.game_result = 'won';
             $('.splash.win').fadeIn();
         }
         else {
             //You loose
             console.log('Done with game 1, you loose');
             this.currentActivation.game1_total++;
+            this.currentContact.game_result = 'lost';
             $('.splash.loose').fadeIn();
         };
         this.updateGameResults('1');
+    },
+    submitGame2: function() {
+        if (that.game2Active) {
+            if ($(this).hasClass('correct')) {
+                $(this).addClass('checked').removeClass('open');
+                that.answersCorrect++;
+                if (that.answersCorrect == 3) {
+                    //Win
+                    that.game2Active = false;
+                    console.log('Done with game 2, you won');
+                    that.currentActivation.game2_total++;
+                    that.currentActivation.game2_wins++;
+                    that.currentContact.game_result = 'won';
+                    that.updateGameResults('2');
+                    $('.splash.win').fadeIn();
+                }
+            }
+            if ($(this).hasClass('incorrect')) {
+                $(this).addClass('checked').removeClass('open');
+                that.answersIncorrect++
+                if (that.answersIncorrect == 2) {
+                    //Lose
+                    that.game2Active = false;
+                    console.log('Done with game 2, you loose');
+                    that.currentActivation.game2_total++;
+                    that.currentContact.game_result = 'lost';
+                    that.updateGameResults('2');
+                    $('.splash.loose').fadeIn();
+                }
+            }   
+        }
     },
     submitGame3: function() {
         var correctAnswers = ['C', 'C', 'C', 'C']
@@ -519,12 +649,14 @@ var app = {
             console.log('Done with game 3, you won');
             this.currentActivation.game3_total++;
             this.currentActivation.game3_wins++;
+            this.currentContact.game_result = 'won';
             $('.splash.win').fadeIn();
         }
         else {
             //You loose
             console.log('Done with game 3, you loose');
             this.currentActivation.game3_total++;
+            this.currentContact.game_result = 'lost';
             $('.splash.loose').fadeIn();
         };
         this.updateGameResults('3');

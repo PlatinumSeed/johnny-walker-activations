@@ -55,6 +55,8 @@ var EffecktPageTransitions = {
 
     }
 
+
+
     if (typeof beforeTransition !== "undefined" && beforeTransition !== null) {
       this[beforeTransition]();
     }
@@ -69,10 +71,7 @@ var EffecktPageTransitions = {
     this.fromPage = $('[data-effeckt-page].effeckt-page-active');
     this.toPage   = $('[data-effeckt-page="' + transitionPage + '"]');
 
-    console.log(this.fromPage.data('effeckt-page'));
-    console.log(transitionPage);
-
-
+    $(document.body).trigger('pageChange', transitionPage);
 
     // Add this class to prevent scroll to be displayed
     this.toPage.addClass('effeckt-page-animating effeckt-page-active ' + this.transitionInEffect);
@@ -124,7 +123,7 @@ var EffecktPageTransitions = {
 
   //Callbacks here
   initGame1: function() {
-    $('body').addClass('game_mode game1');
+    $('body').addClass('game1');
   },
 
   initGame2: function() {

@@ -1729,6 +1729,66 @@ label.errorState {
   color: #d70808;
 }
 
+/* ::Animations  */
+/* ----------------------------------------------------------- */
+.spinner {
+  width: 50px;
+  height: 30px;
+  margin: 0 auto;
+  z-index: 11;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: white;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+  animation: stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes stretchdelay {
+  0%, 40%, 100% {
+    -webkit-transform: scaleY(0.4);
+  }
+
+  20% {
+    -webkit-transform: scaleY(1);
+  }
+}
+@keyframes stretchdelay {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }
+
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+  }
+}
 /* ::Base styles Almost exclusively single element selectors */
 /* ------------------------------------------------------------ */
 html {
@@ -1843,6 +1903,31 @@ nav ul li a {
 }
 nav ul li a:visited, nav ul li a:hover {
   color: white;
+}
+
+.loading {
+  height: 90px;
+  margin-top: -45px;
+  top: 50%;
+  width: 270px;
+  margin-left: -135px;
+  left: 50%;
+  padding: 20px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background: black;
+  position: absolute;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  z-index: 11;
+  display: none;
+}
+.loading .loading_text {
+  color: white;
+  font-family: 'TradeGothicBold';
+  font-size: 24px;
 }
 
 /* ::Panels  */
@@ -2001,6 +2086,7 @@ footer {
 .game1_stage {
   width: 1140px;
   margin: 0 auto;
+  background: url(../images/game1_pluses.png) no-repeat center center;
 }
 .game1_stage ul {
   position: relative;
@@ -2098,6 +2184,11 @@ footer {
 
 /* ::Game 3  */
 /* ----------------------------------------------------------- */
+.game3_stage {
+  width: 1152px;
+  margin: 0 auto;
+}
+
 .slide {
   height: 340px;
   width: 1152px;

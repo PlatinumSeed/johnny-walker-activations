@@ -123,7 +123,7 @@ var EffecktPageTransitions = {
 
   //Callbacks here
   initGame1: function() {
-    $('body').addClass('game_mode game1');
+    $('body').addClass('game1');
   },
 
   initGame2: function() {

@@ -15,7 +15,6 @@
     <content src="index.html" />
     <access origin="*" />
     <preference name="LoadingDialog" value="Please wait, the app is loading" />
-    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="landscape" />
     <preference name="HideKeyboardFormAccessoryBar" value="true" />
 </widget>

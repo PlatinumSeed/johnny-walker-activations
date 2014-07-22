@@ -470,6 +470,7 @@ footer {
 .game1_stage {
 	width: 1140px;
 	margin: 0 auto;
+	background: url(../images/game1_pluses.png) no-repeat center center;
 
 	ul {
 		position: relative;
@@ -583,6 +584,11 @@ footer {
 
 /* ::Game 3  */
 /* ----------------------------------------------------------- */	
+.game3_stage {
+	width: 1152px;
+	margin: 0 auto;
+}
+
 .slide {
 	height: 340px;
 	width: 1152px;

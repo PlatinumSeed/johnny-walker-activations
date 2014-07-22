@@ -137,6 +137,7 @@ var DBSYNC = {
 
         self._getDataToBackup(function(data) {
             self.clientData = data;
+            console.log(self.clientData);
             if (saveBandwidth && self.syncResult.nbSent === 0) {
                 self.syncResult.localDataUpdated = false;
                 self.syncResult.syncOK = true;
