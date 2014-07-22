@@ -49,9 +49,9 @@
 
             <ul>
                 <li><a href="#" class="menu_home transition-button" data-effeckt-transition-in="slide-from-top"  data-effeckt-transition-out="slide-to-bottom" data-effeckt-transition-page="activation">Home</a></li>
-                <li><a href="#" class="menu_end_activation transition-button" data-effeckt-transition-in="slide-from-top"  data-effeckt-transition-out="slide-to-bottom" data-effeckt-transition-page="end_activation">Termine ativação atual</a></li>
-                <li><a href="#" class="menu_activation_reports action" data-action="getTable">Relatórios de Ativação</a></li>
-                <li><a href="#" class="menu_sync action" data-action="dataSync">Sincronize os dados</a></li>
+                <li><a href="#" class="menu_end_activation transition-button" data-effeckt-transition-in="slide-from-top"  data-effeckt-transition-out="slide-to-bottom" data-effeckt-transition-page="end_activation">End Activation</a></li>
+                <li><a href="#" class="menu_activation_reports action" data-action="getTable">Activation Reports</a></li>
+                <li><a href="#" class="menu_sync action" data-action="dataSync">Sync Data</a></li>
                 <!--
                 <li><a class="transition-button" data-effeckt-transition-in="scale-up-from-behind"  data-effeckt-transition-out="scale-up-to-front" data-effeckt-transition-page="game_1" data-before="initGame1" >Let's play</a><br /></li>
                 <li><a class="transition-button" data-effeckt-transition-in="scale-up-from-behind"  data-effeckt-transition-out="scale-up-to-front" data-effeckt-transition-page="game_2" data-before="initGame2" >Let's play 2</a><br /></li>
@@ -70,47 +70,47 @@
                     <h1>Nova Ativação</h1>
                     <form class="new_activation" action="">
                         <div class="input_box">
-                            <label class="text" for="Local">
+                            <label class="text" for="Venue">
                                 <input type="text" name="venue" value="" required />
                             </label>
                         </div>
                         <div class="input_box">
-                            <label class="text" for="Data">
+                            <label class="text" for="Date">
                                 <input type="date" name="date" value="" required />
                             </label>
                         </div>
                         <div class="input_box">
-                            <label class="text" for="Hora">
+                            <label class="text" for="Time">
                                 <input type="time" name="time" value="" required />
                             </label>
                         </div>
-                        <button class="brown_button action" data-action="createActivation">Criar ativação</button>
+                        <button class="brown_button action" data-action="createActivation">Create Activation</button>
                     </form>
                 </div>
             </section>
             
             <section class="activation" data-effeckt-page="activation">
                 <div class="content">
-                    <h1>Ativação</h1>
-                    <h2><span class="activation_venue"></span> em <span class="activation_date"></span></h2>
-                        <button class="brown_button transition-button" data-effeckt-transition-in="slide-from-right"  data-effeckt-transition-out="slide-to-left" data-effeckt-transition-page="enter_details">Adicionar novo contacto</button><br />
-                        <button class="grey_button transition-button" data-effeckt-transition-in="slide-from-right"  data-effeckt-transition-out="slide-to-left" data-effeckt-transition-page="end_activation">Termine ativação</button>
+                    <h1>Activation</h1>
+                    <h2><span class="activation_venue"></span> on <span class="activation_date"></span></h2>
+                        <button class="brown_button transition-button" data-effeckt-transition-in="slide-from-right"  data-effeckt-transition-out="slide-to-left" data-effeckt-transition-page="enter_details">Add new contact</button><br />
+                        <button class="grey_button transition-button" data-effeckt-transition-in="slide-from-right"  data-effeckt-transition-out="slide-to-left" data-effeckt-transition-page="end_activation">End Activation</button>
                      </div>
                 </div>
             </section>
 
             <section class="enter_details" data-effeckt-page="enter_details">
                 <div class="content">
-                    <h3>Vamos conhecê-lo</h3>
-                    <h1>Insira seus dados</h1>
+                    <h3>Let's Get to know you</h3>
+                    <h1>Enter your details</h1>
                     <form action="" class="details">
                         <div class="input_box--half">
-                            <label class="text" for="Nome">
+                            <label class="text" for="Name">
                                 <input type="text" name="first_name" value="" required  autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text" for="Apelido">
+                            <label class="text" for="Surname">
                                 <input type="text" name="last_name" value="" required autocomplete="off" />
                             </label>
                         </div>
@@ -120,55 +120,55 @@
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text wide" for="Telemóvel">
+                            <label class="text wide" for="Mobile Number">
                                 <input type="tel" name="mobile_number" value="" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
                             <div class="radio_box action" data-action="setCheck">
                                 <input type="radio" name="gender" value="male" />   
-                                <label class="radio" for="gender">Masculino </label>
+                                <label class="radio" for="gender">Male </label>
                             </div>
                             <div class="radio_box action" data-action="setCheck">
                                 <input type="radio" name="gender" value="female" />    
-                                <label class="radio" for="gender">Feminino</label>
+                                <label class="radio" for="gender">Female</label>
                             </div>
                         </div>
                         <div class="input_box--half">
-                            <label class="text wide" for="Conta de Twitter">
+                            <label class="text wide" for="Twitter Handle">
                                 <input type="text" name="twitter_handle" value="" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
                             <div class="check_box action" data-action="setCheck">
                                 <input type="checkbox" name="age_verify" value="yes">
-                                <label for="age_verify" class="checkbox" checked>Confirmo estou dentro ou acima da idade legal de consumir álcool no meu país</label>
+                                <label for="age_verify" class="checkbox" checked>I verify that I am over the legal drinking age for my country.</label>
                             </div>
                         </div>
                         <div class="input_box--half">
                             <div class="check_box action" data-action="setCheck">
                                 <input type="checkbox" name="newsletter_signup" value="yes">
-                                <label for="newsletter_signup" class="checkbox">Gostaria de receber comunicações de Johnnie Walker no futuro</label>
+                                <label for="newsletter_signup" class="checkbox">I want to recieve future communication from Johnnie Walker.</label>
                             </div>
                         </div>
-                        <button class="brown_button action" data-action="createContact">Vamos jogar!</button><br />
-                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancelar</a>
+                        <button class="brown_button action" data-action="createContact">Let's play</button><br />
+                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancel</a>
                     </form>
                 </div>
             </section>
 
             <section class="activation_reports" data-effeckt-page="activation_reports">
                 <div class="content">
-                    <h1>Relatórios de Ativação</h1>
+                    <h1>Activation Reports</h1>
                     <div class="tableContainer">
                         <div class="table_header">
-                            <div class="table_header__item">Ativação</div>
-                            <div class="table_header__item">Presenças</div>
-                            <div class="table_header__item">Contactos</div>
-                            <div class="table_header__item">JW &amp; GA</div>
-                            <div class="table_header__item">Sabores</div>
-                            <div class="table_header__item">História</div>
-                            <div class="table_header__item">Resultado total</div>
+                            <div class="table_header__item">Activation</div>
+                            <div class="table_header__item">Attendance</div>
+                            <div class="table_header__item">Contacts</div>
+                            <div class="table_header__item">Game 1</div>
+                            <div class="table_header__item">Game 2</div>
+                            <div class="table_header__item">Game 3</div>
+                            <div class="table_header__item">Total Score</div>
                         </div>
                         
                         <div class="table_body"></div>
@@ -178,28 +178,28 @@
 
             <section class="end_activation" data-effeckt-page="end_activation">
                 <div class="content">
-                    <h1>Termine ativação </h1>
+                    <h1>End Activation</h1>
                     <h2><span class="activation_venue"></span> on <span class="activation_date"></span></h2>
                     <form class="end_activation" action="">
                         <div class="input_box">
-                            <label class="text wide" for="Presenças">
+                            <label class="text wide" for="Attendance">
                                 <input type="number" name="attendance" value="" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box">
-                            <label class="textarea" for="Comentários adicionais">
+                            <label class="textarea" for="comments">
                                 <textarea name="additional_comments"></textarea>
                             </label>
                         </div>
-                        <button class="brown_button action" data-action="endActivation">Termine ativação</button><br />
-                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancelar</a>
+                        <button class="brown_button action" data-action="endActivation">End Activation</button><br />
+                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancel</a>
                     </form>
                 </div>
             </section>
 
             <section class="game" data-effeckt-page="game_1">
-                <span class="game_title">Desafio Johnnie Red e Ginger Ale</span>
-                <span class="game_instructions">Faça o seu Johnnie Red &amp; Ginger Ale, arraste os ingredientes na ordem correta para uma bebida perfeita!</span>
+                <span class="game_title">Johnnie Red &amp; ginger challenge</span>
+                <span class="game_instructions">Make your Johnnie Red &amp; Ginger by dragging the ingredients into the correct order for a perfect serve!</span>
                 <div class="game1_stage">  
                     <ul class="sortable">
                         <li id="gingerbeer" class="sortable_item image1"><span class="order">1</span></li>
@@ -207,61 +207,61 @@
                         <li id="ice" class="sortable_item image3"><span class="order">3</span></li>
                     </ul> 
                 </div>
-                <button class="brown_button action" data-action="submitGame1">Misture a minha bebida!</button>
+                <button class="brown_button action" data-action="submitGame1">Mix my drink!</button>
             </section>
 
             <section class="game" data-effeckt-page="game_2">
-                <span class="game_title">Desafio da História do Johnnie Red</span>
-                <span class="game_instructions">Escolha 3 sabores ou aromas que você acha que estão presentes no Johnnie Walker Red</span>
+                <span class="game_title">Johnnie Red Taste Challenge</span>
+                <span class="game_instructions">Choose any 3 tastes or aromas that you think are present in Johnnie Walker Red.</span>
                 <div class="game2_stage">  
                     <ul class="game2_checkboxes">
                         <li class="open incorrect">
                             <div class="select_state"></div>
                             <img src="images/game2_malt.jpg" height="162" width="162">
-                            <span class="option_text">Malte</span>
+                            <span class="option_text">Malt</span>
                         </li>
                         <li class="open incorrect">
                             <div class="select_state"></div>
                             <img src="images/game2_citrus.jpg" height="162" width="162">
-                            <span class="option_text">Citrino</span>
+                            <span class="option_text">Citrus</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
                             <img src="images/game2_oak.jpg" height="162" width="162">
-                            <span class="option_text">Carvalho</span>
+                            <span class="option_text">Oak</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
                             <img src="images/game2_spice.jpg" height="162" width="162">
-                            <span class="option_text">Especiarias</span>
+                            <span class="option_text">Spice</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
                             <img src="images/game2_nuts.jpg" height="162" width="162">
-                            <span class="option_text">Nozes</span>
+                            <span class="option_text">Nuts</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
                             <img src="images/game2_smoke.jpg" height="162" width="162">
-                            <span class="option_text">Fumado</span>
+                            <span class="option_text">Smoke</span>
                         </li>
                         <li class="open incorrect">
                             <div class="select_state"></div>
                             <img src="images/game2_caramel.jpg" height="162" width="162">
-                            <span class="option_text">Caramelo</span>
+                            <span class="option_text">Caramel</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
                             <img src="images/game2_vanilla.jpg" height="162" width="162">
-                            <span class="option_text">Baunilha</span>
+                            <span class="option_text">Vanilla</span>
                         </li>
                     </ul> 
-                    <button class="brown_button action submit_game2 hide" data-action="submitGame2">Enviar escolha</button>
+                    <button class="brown_button action submit_game2 hide" data-action="submitGame2">Submit Choice</button>
                 </div>
             </section>
 
             <section class="game" data-effeckt-page="game_3">
-                <span class="game_title">Desafio da História do Johnnie Red</span>
+                <span class="game_title">Johnnie Red history challenge</span>
                     <!-- slider -->
                     <div class='game3_stage cycle-slideshow'
                         data-cycle-fx="scrollHorz"
@@ -273,7 +273,7 @@
                     >
                         <!-- slides -->
                         <div class='slide question1'>
-                            <span class="question">O nosso Master Blender, Jim Beveridge, faz parte de uma linhagem de excelência na mistura de bebidas desde os anos?</span>
+                            <span class="question">Question 1: Our Master Blender, Jim Beveridge, is part of an unbroken lineage of blending excellence dating back to?</span>
                             <div class="question_options">
                                 <div class="option option_a" data-option="A">1805</div>
                                 <div class="option option_b" data-option="B">1820</div>
@@ -282,25 +282,25 @@
                             </div>
                         </div>
                         <div class='slide question2'>
-                            <span class="question">Qual é a forma da legendária garrafa de Johnnie Walker?</span>
+                            <span class="question">Question 2: What is the shape of the legendary Johnnie Walker bottle?</span>
                             <div class="question_options">
-                                <div class="option option_a" data-option="A">Redonda</div>
-                                <div class="option option_b" data-option="B">Quadrada</div>
+                                <div class="option option_a" data-option="A">Round</div>
+                                <div class="option option_b" data-option="B">Square</div>
                                 <div class="option option_c" data-option="C">Triangular</div>
                                 <div class="option option_d" data-option="D">Hexagonal</div>
                             </div>
                         </div>
                         <div class='slide question3'>
-                            <span class="question">O rótulo da garrafa de Johnnie Walker está definido em que ângulo?</span>
+                            <span class="question">Question 3: The label on the Johnnie Walker Bottle is set at what angle?</span>
                             <div class="question_options">
-                                <div class="option option_a" data-option="A">Oblíquo</div>
+                                <div class="option option_a" data-option="A">Slanted</div>
                                 <div class="option option_b" data-option="B">Vertical</div>
                                 <div class="option option_c" data-option="C">Horizontal</div>
-                                <div class="option option_d" data-option="D">Afilado</div>
+                                <div class="option option_d" data-option="D">Tapered</div>
                             </div>
                         </div>
                         <div class='slide question4'>
-                            <span class="question">Quantos anos tem a gama de whiskies Johnnie Walker</span>
+                            <span class="question">Question 4: How many years old is the Johnny Walker range of Whiskies?</span>
                             <div class="question_options">
                                 <div class="option option_a" data-option="A">100</div>
                                 <div class="option option_b" data-option="B">200</div>
@@ -317,8 +317,8 @@
             <footer></footer>    
         </main>
         
-        <div class="splash win"><img src="images/win_splash_portuguese.jpg" /></div>  
-        <div class="splash loose"><img src="images/loose_splash_portuguese.jpg" /></div>
+        <div class="splash win"><img src="images/win_splash.jpg" /></div>  
+        <div class="splash loose"><img src="images/loose_splash.jpg" /></div>
 
         <script src="cordova.js"></script>
         <script src="js/jquery.min.js"></script>
