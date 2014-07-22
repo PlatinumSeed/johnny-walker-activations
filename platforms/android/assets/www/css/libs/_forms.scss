@@ -75,6 +75,10 @@ form {
 	}
 }
 
+.check_box {
+	min-height: 44px;
+}
+
 %label_base {
 	font-family: 'TradeGothicBold';
 	font-size: 20px;
@@ -118,6 +122,10 @@ label.checkbox {
 	color: #f8f4ec;
 	position: relative;
 	top: 3px;
+	display: inline-block;
+	width: 398px;
+	vertical-align: middle;
+	text-align: left;
 }
 
 label.textarea {

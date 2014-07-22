@@ -76,10 +76,13 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/checkbox.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/checkbox_checked.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/close_icon.png \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/footer-portuguese.jpg \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/footer.jpg \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game1_image1.png \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game1_image1_portuguese.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game1_image2.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game1_image3.png \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game1_image3_portuguese.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game1_pluses.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game2_background.jpg \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game2_caramel.jpg \
@@ -96,9 +99,11 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/game_title_underline.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/logo.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/loose_splash.jpg \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/loose_splash_portuguese.jpg \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/menu_close_icon.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/menu_icon.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/win_splash.jpg \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/images/win_splash_portuguese.jpg \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/core.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/fastclick.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/index.js \
