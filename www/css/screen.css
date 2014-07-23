@@ -1690,7 +1690,8 @@ input[type="tel"] {
 }
 
 input[type="date"],
-input[type="time"] {
+input[type="time"],
+input[type="number"] {
   width: 460px;
 }
 
@@ -1825,13 +1826,6 @@ body {
 }
 
 .game_logo {
-  display: none;
-}
-
-.game_mode .logo {
-  display: none;
-}
-.game_mode .game_logo {
   position: absolute;
   top: 22px;
   height: 58px;
@@ -1864,7 +1858,8 @@ main {
 main.open {
   margin-left: -380px;
 }
-.game_mode main {
+
+.game2 main, .game3 main {
   background: url(../images/game2_background.jpg) black no-repeat;
 }
 
@@ -2083,6 +2078,7 @@ footer {
 .game1_stage {
   width: 1140px;
   margin: 0 auto;
+  background: url(../images/game1_pluses.png) no-repeat center center;
 }
 .game1_stage ul {
   position: relative;
@@ -2124,7 +2120,7 @@ footer {
 }
 .game2_checkboxes li {
   display: inline-block;
-  width: 162px;
+  width: 170px;
   text-align: center;
   margin-bottom: 25px;
   position: relative;
@@ -2132,19 +2128,15 @@ footer {
 .game2_checkboxes li .select_state {
   position: absolute;
   display: none;
+  width: 164px;
+  height: 164px;
+  top: 0;
+  left: 3px;
 }
 .game2_checkboxes li.correct .select_state {
-  top: 50px;
-  left: 48px;
-  width: 92px;
-  height: 62px;
   background: url(../images/game2_correct_state.png) no-repeat;
 }
 .game2_checkboxes li.incorrect .select_state {
-  top: 60px;
-  left: 52px;
-  width: 56px;
-  height: 52px;
   background: url(../images/game2_incorrect_state.png) no-repeat;
 }
 .game2_checkboxes li img {
@@ -2153,6 +2145,8 @@ footer {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   margin-bottom: 15px;
+  display: block;
+  margin: 0 auto;
 }
 .game2_checkboxes li .option_text {
   font-family: 'TradeGothicBold';
@@ -2162,9 +2156,6 @@ footer {
 }
 .game2_checkboxes li.checked .select_state {
   display: block;
-}
-.game2_checkboxes li.checked img {
-  border: 2px solid #dfbe87;
 }
 .game2_checkboxes li.checked .option_text {
   color: #dfbe87;
@@ -2180,6 +2171,11 @@ footer {
 
 /* ::Game 3  */
 /* ----------------------------------------------------------- */
+.game3_stage {
+  width: 1152px;
+  margin: 0 auto;
+}
+
 .slide {
   height: 340px;
   width: 1152px;

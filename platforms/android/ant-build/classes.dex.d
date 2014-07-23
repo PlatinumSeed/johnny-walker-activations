@@ -6,4 +6,5 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-build/classes/com/platinumseed/jwactivations/R$string.class \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-build/classes/com/platinumseed/jwactivations/R$xml.class \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-build/classes/com/platinumseed/jwactivations/R.class \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-build/dexedLibs/classes-4990610a76dd7870742401574f26029f.jar \

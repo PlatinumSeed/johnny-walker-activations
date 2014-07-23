@@ -55,8 +55,6 @@ var EffecktPageTransitions = {
 
     }
 
-
-
     if (typeof beforeTransition !== "undefined" && beforeTransition !== null) {
       this[beforeTransition]();
     }
@@ -123,19 +121,19 @@ var EffecktPageTransitions = {
 
   //Callbacks here
   initGame1: function() {
-    $('body').addClass('game_mode game1');
+    $('body').addClass('game1');
   },
 
   initGame2: function() {
-    $('body').addClass('game_mode game2');
+    $('body').addClass('game2');
   },
 
   initGame3: function() {
-    $('body').addClass('game_mode game3');
+    $('body').addClass('game3');
   },
 
   endGame: function() {
-     $('body').removeClass('game_mode game3 game2 game1');
+    $('body').removeClass('game3 game2 game1');
   }
 
 };

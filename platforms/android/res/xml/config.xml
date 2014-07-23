@@ -5,6 +5,9 @@
     <feature name="App">
         <param name="android-package" value="org.apache.cordova.App" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <name>Johnny Walker Activations</name>
     <description>
         This app records activations for Johnny Walker Red at events, allowing participents to play one of 3 games randomly selected, in order to win prizes
@@ -15,7 +18,6 @@
     <content src="index.html" />
     <access origin="*" />
     <preference name="LoadingDialog" value="Please wait, the app is loading" />
-    <preference name="Fullscreen" value="true" />
     <preference name="Orientation" value="landscape" />
     <preference name="HideKeyboardFormAccessoryBar" value="true" />
 </widget>

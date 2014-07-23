@@ -55,24 +55,13 @@ body {
 }
 
 .game_logo {
-	display: none;
-}
-
-.game_mode {
-
-	.logo {
-		display: none;
-	}
-
-	.game_logo {
-		position: absolute;
-		top: 22px;
-		height: 58px;
-		@include horizontal-center(38px);
-		background: url(../images/game_logo.png) no-repeat;
-		z-index: 11;
-		display: block;
-	}
+	position: absolute;
+	top: 22px;
+	height: 58px;
+	@include horizontal-center(38px);
+	background: url(../images/game_logo.png) no-repeat;
+	z-index: 11;
+	display: block;
 }
 
 main {
@@ -92,10 +81,13 @@ main {
     &.open {
 		margin-left: -380px;
     }
+}
 
-    .game_mode & {
-    	background: url(../images/game2_background.jpg) black no-repeat;
-    }
+.game2, .game3 {
+	
+	main {
+		background: url(../images/game2_background.jpg) black no-repeat;
+	}
 }
 
 /* ::Menu  */
@@ -339,6 +331,7 @@ footer {
 .game1_stage {
 	width: 1140px;
 	margin: 0 auto;
+	background: url(../images/game1_pluses.png) no-repeat center center;
 
 	ul {
 		position: relative;
@@ -384,7 +377,7 @@ footer {
 
 	li {
 		display: inline-block;
-		width: 162px;
+		width: 170px;
 		text-align: center;
 		margin-bottom: 25px;
 		position: relative;
@@ -392,21 +385,17 @@ footer {
 		.select_state {
 			position: absolute;
 			display: none;
+			width: 164px;
+			height: 164px;
+			top: 0;
+			left: 3px;
 		}
 
 		&.correct .select_state {
-			top: 50px;
-			left: 48px;
-			width: 92px;
-			height: 62px;
 			background: url(../images/game2_correct_state.png) no-repeat;
 		}
 
 		&.incorrect .select_state {
-			top: 60px;
-			left: 52px;
-			width: 56px;
-			height: 52px;
 			background: url(../images/game2_incorrect_state.png) no-repeat;
 		}
 
@@ -414,6 +403,8 @@ footer {
 			border: 2px solid black;
 			@include border-radius(50%);
 			margin-bottom: 15px;
+			display: block;
+			margin: 0 auto;
 		}
 
 		.option_text {
@@ -427,10 +418,6 @@ footer {
 			
 			.select_state {
 				display: block;
-			}	
-
-			img {
-				border: 2px solid #dfbe87;
 			}
 
 			.option_text {
@@ -452,6 +439,11 @@ footer {
 
 /* ::Game 3  */
 /* ----------------------------------------------------------- */	
+.game3_stage {
+	width: 1152px;
+	margin: 0 auto;
+}
+
 .slide {
 	height: 340px;
 	width: 1152px;

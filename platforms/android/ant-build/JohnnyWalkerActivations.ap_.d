@@ -39,6 +39,7 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/package.json \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/plugins \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/README.md \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/css/fonts \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/css/libs \
@@ -1422,4 +1423,7 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules/grunt-contrib-watch/test/tasks/patterns_test.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules/grunt-contrib-watch/test/tasks/reloadgruntfile_test.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules/grunt-contrib-watch/test/tasks/watch_test.js \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/plugins/org.apache.cordova.device \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/plugins/org.apache.cordova.device/www \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/plugins/org.apache.cordova.device/www/device.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-build/AndroidManifest.xml \

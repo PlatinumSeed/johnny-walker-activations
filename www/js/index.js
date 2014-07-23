@@ -135,6 +135,7 @@ var app = {
     onDeviceReady: function() {
         document.addEventListener("showkeyboard", function(){ $('.logo, footer').hide(); }, false);
         document.addEventListener("hidekeyboard", function(){ $('.logo, footer').show();}, false);
+        window.device_id = device.uuid;
     },
 
     //Database Section
@@ -143,8 +144,8 @@ var app = {
         db.transaction(this.structureDB, this.errorDB, this.syncWatch);
     },
     structureDB: function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS activations( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, venue TEXT NOT NULL, date_time TEXT NOT NULL, attendance INTEGER, additional_comments TEXT, game1_total INTEGER, game1_wins INTEGER, game2_total INTEGER, game2_wins INTEGER, game3_total INTEGER,  game3_wins INTEGER, synced INTEGER)');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS contacts ( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL, mobile_number TEXT NOT NULL, gender TEXT NOT NULL, twitter_handle TEXT, newsletter_signup TEXT, activation_id INTEGER, game_result TEXT, synced INTEGER)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS activations( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, venue TEXT NOT NULL, date_time TEXT NOT NULL, attendance INTEGER, additional_comments TEXT, game1_total INTEGER, game1_wins INTEGER, game2_total INTEGER, game2_wins INTEGER, game3_total INTEGER,  game3_wins INTEGER, synced INTEGER, device_id VARCHAR)');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS contacts ( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL, mobile_number TEXT NOT NULL, gender TEXT NOT NULL, twitter_handle TEXT, newsletter_signup TEXT, activation_id INTEGER, game_result TEXT, synced INTEGER, device_id VARCHAR)');
     },
     createActivation: function(event){
         //Validation
@@ -176,7 +177,7 @@ var app = {
         var that = this;
         db.transaction(function(tx){
             tx.executeSql(
-                'INSERT INTO activations (venue, date_time, attendance, game1_total, game1_wins, game2_total, game2_wins, game3_total, game3_wins, synced) VALUES ("'+that.currentActivation.venue+'", "'+that.currentActivation.date_time+'", "0", "0", "0", "0", "0", "0", "0", "0")',
+                'INSERT INTO activations (venue, date_time, attendance, game1_total, game1_wins, game2_total, game2_wins, game3_total, game3_wins, synced, device_id) VALUES ("'+that.currentActivation.venue+'", "'+that.currentActivation.date_time+'", "0", "0", "0", "0", "0", "0", "0", "0", "'+window.device_id+'")',
                 [],
                 function(tx, results) {
                     that.currentActivation.id = results.insertId;
@@ -213,7 +214,7 @@ var app = {
         var that = this;
         db.transaction(function(tx){
             tx.executeSql(
-                'INSERT INTO contacts (first_name, last_name, email, mobile_number, gender, twitter_handle, newsletter_signup, activation_id, synced) VALUES ("'+that.currentContact.first_name+'", "'+that.currentContact.last_name+'", "'+that.currentContact.email+'", "'+that.currentContact.mobile_number+'", "'+that.currentContact.gender+'", "'+that.currentContact.twitter_handle+'", "'+that.currentContact.newsletter_signup+'", "'+that.currentContact.activation_id+'", "0")',
+                'INSERT INTO contacts (first_name, last_name, email, mobile_number, gender, twitter_handle, newsletter_signup, activation_id, synced, device_id) VALUES ("'+that.currentContact.first_name+'", "'+that.currentContact.last_name+'", "'+that.currentContact.email+'", "'+that.currentContact.mobile_number+'", "'+that.currentContact.gender+'", "'+that.currentContact.twitter_handle+'", "'+that.currentContact.newsletter_signup+'", "'+that.currentContact.activation_id+'", "0", "'+window.device_id+'")',
                 [],
                 function(tx, results) {
                     that.currentContact.id = results.insertId;
@@ -366,7 +367,7 @@ var app = {
                 });
             }
             else {
-                Alert('All your activations are already in sync');
+                alert('All your activations are already in sync');
                 $('.loading').hide();
             };
             
@@ -603,7 +604,7 @@ var app = {
         }
     },
     submitGame3: function() {
-        var correctAnswers = ['C', 'C', 'C', 'C']
+        var correctAnswers = ['B', 'B', 'A', 'B']
         win = true;
         for (i = 1; i < 5; i++) { 
              if ($('.question'+i+' .selected').data('option') != correctAnswers[i - 1]) {
