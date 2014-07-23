@@ -112,6 +112,7 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/page-transitions.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/parsley.min.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/vendor \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/js/webSqlSync.js \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules/grunt \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules/grunt-contrib-compass \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/assets/www/node_modules/grunt-contrib-concat \
