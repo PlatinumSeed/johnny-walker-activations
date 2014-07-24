@@ -110,7 +110,7 @@
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text" for="Surname">
+                            <label class="text medium" for="Surname">
                                 <input type="text" name="last_name" value="" required autocomplete="off" />
                             </label>
                         </div>
@@ -125,6 +125,11 @@
                             </label>
                         </div>
                         <div class="input_box--half">
+                            <label class="text wide" for="Twitter Handle">
+                                <input type="text" name="twitter_handle" value="" autocomplete="off" />
+                            </label>
+                        </div>
+                        <div class="input_box--half">
                             <div class="radio_box action" data-action="setCheck">
                                 <input type="radio" name="gender" value="male" checked />   
                                 <label class="radio" for="gender">Male </label>
@@ -133,11 +138,6 @@
                                 <input type="radio" name="gender" value="female" />    
                                 <label class="radio" for="gender">Female</label>
                             </div>
-                        </div>
-                        <div class="input_box--half">
-                            <label class="text wide" for="Twitter Handle">
-                                <input type="text" name="twitter_handle" value="" required autocomplete="off" />
-                            </label>
                         </div>
                         <div class="input_box--half">
                             <div class="check_box action" data-action="setCheck">
@@ -152,7 +152,7 @@
                             </div>
                         </div>
                         <button class="brown_button action" data-action="createContact">Let's play</button><br />
-                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancel</a>
+                        <a href="#" class="cancel_button action" data-action="cancelContact">Cancel</a>
                     </form>
                 </div>
             </section>
@@ -171,9 +171,9 @@
                             <div class="table_header__item">History</div>
                             <div class="table_header__item">Total Score</div>
                         </div>
-                        
                         <div class="table_body"></div>
                     </div>
+                    <button class="brown_button action" data-action="closeReports">Back</button>
                 </div>
             </section>
 
@@ -194,7 +194,7 @@
                             </label>
                         </div>
                         <button class="brown_button action" data-action="endActivation">End Activation</button><br />
-                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancel</a>
+                        <a href="#" class="cancel_button action" data-action="cancelEnd">Cancel</a>
                     </form>
                 </div>
             </section>
@@ -322,8 +322,8 @@
             <footer></footer>    
         </main>
         
-        <div class="splash win"><img src="images/win_splash.jpg" /></div>  
-        <div class="splash loose"><img src="images/loose_splash.jpg" /></div>
+        <div class="splash win"></div>  
+        <div class="splash loose"></div>
 
         <script src="cordova.js"></script>
         <script src="js/jquery.min.js"></script>

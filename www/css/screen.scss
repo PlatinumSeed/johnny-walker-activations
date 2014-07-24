@@ -232,7 +232,7 @@ section {
 		@include border-radius(5px);
 		width: 1160px;
 		border: 2px solid #292929;
-		margin: 0 auto;
+		margin: 0 auto 20px auto;
 	}
 
 	.table_header {
@@ -337,6 +337,7 @@ footer {
 		position: relative;
 		height: 420px;
 		margin-bottom: 35px;
+		overflow:hidden;
 
 		li {
 			width: 380px;
@@ -385,10 +386,10 @@ footer {
 		.select_state {
 			position: absolute;
 			display: none;
-			width: 164px;
-			height: 164px;
-			top: 0;
-			left: 3px;
+			width: 414px;
+			height: 414px;
+			top: -122px;
+			left: -123px;
 		}
 
 		&.correct .select_state {
@@ -412,6 +413,8 @@ footer {
 			font-size: 14px;
 			color: white;
 			text-transform: uppercase;
+			display: inline-block;
+			margin-top: 15px;
 		}
 
 		&.checked {
@@ -464,11 +467,11 @@ footer {
 		.option {
 			width: 430px;
 			float: left;
-			background: -webkit-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-			background: -moz-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-			background: -o-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-			background: -ms-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-			background: linear-gradient(0deg, #0d0d0d 0%, #1a1a1a 100%);
+			background: -webkit-linear-gradient(90deg, #242424 0%, #333333 100%);
+			background: -moz-linear-gradient(90deg, #242424 0%, #333333 100%);
+			background: -o-linear-gradient(90deg, #242424 0%, #333333 100%);
+			background: -ms-linear-gradient(90deg, #242424 0%, #333333 100%);
+			background: linear-gradient(0deg, #242424 0%, #333333 100%);
 			font-family: 'TradeGothicBold';
 			@include border-radius(5px);
 			font-size: 28px;
@@ -638,10 +641,18 @@ footer {
 	left: 0;
 	right: 0;
 	z-index: 12;
+	background-size: 100% 100%;
 	display: none;
+	
+	&.win {
+		background: url(../images/win_splash.jpg);
+	}
 
+	&.loose {
+		background: url(../images/loose_splash.jpg);
+	}
 	img {
-		min-width: 100%;
+		max-width: 100%;
 		display: block;
 	}
 }

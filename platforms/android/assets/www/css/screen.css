@@ -1570,6 +1570,10 @@ label.text, label.radio, label.textarea {
   width: 100%;
 }
 
+.check_box {
+  margin: 15px 0;
+}
+
 label.text {
   display: inline-block;
 }
@@ -1632,7 +1636,7 @@ input[type="email"],
 input[type="url"],
 input[type="search"],
 input[type="tel"] {
-  padding: 23px 20px 13px 75px;
+  padding: 28px 20px 8px 75px;
   font-size: 28px;
   color: #d6b77d;
   display: block;
@@ -1670,7 +1674,7 @@ input[type="email"], .medium
 input[type="url"], .medium
 input[type="search"], .medium
 input[type="tel"] {
-  padding: 23px 20px 13px 100px;
+  padding: 28px 20px 8px 100px;
 }
 .wide input, .wide
 input[type="text"], .wide
@@ -1686,7 +1690,7 @@ input[type="email"], .wide
 input[type="url"], .wide
 input[type="search"], .wide
 input[type="tel"] {
-  padding: 23px 20px 13px 110px;
+  padding: 28px 20px 8px 120px;
 }
 
 input[type="date"],
@@ -1987,7 +1991,7 @@ section .content {
   border-radius: 5px;
   width: 1160px;
   border: 2px solid #292929;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 }
 .activation_reports .table_header {
   background: -webkit-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
@@ -2084,6 +2088,7 @@ footer {
   position: relative;
   height: 420px;
   margin-bottom: 35px;
+  overflow: hidden;
 }
 .game1_stage ul li {
   width: 380px;
@@ -2128,19 +2133,15 @@ footer {
 .game2_checkboxes li .select_state {
   position: absolute;
   display: none;
+  width: 414px;
+  height: 414px;
+  top: -122px;
+  left: -123px;
 }
 .game2_checkboxes li.correct .select_state {
-  top: 50px;
-  left: 48px;
-  width: 92px;
-  height: 62px;
   background: url(../images/game2_correct_state.png) no-repeat;
 }
 .game2_checkboxes li.incorrect .select_state {
-  top: 60px;
-  left: 52px;
-  width: 56px;
-  height: 52px;
   background: url(../images/game2_incorrect_state.png) no-repeat;
 }
 .game2_checkboxes li img {
@@ -2157,12 +2158,11 @@ footer {
   font-size: 14px;
   color: white;
   text-transform: uppercase;
+  display: inline-block;
+  margin-top: 15px;
 }
 .game2_checkboxes li.checked .select_state {
   display: block;
-}
-.game2_checkboxes li.checked img {
-  border: 2px solid #dfbe87;
 }
 .game2_checkboxes li.checked .option_text {
   color: #dfbe87;
@@ -2202,11 +2202,11 @@ footer {
 .slide .question_options .option {
   width: 430px;
   float: left;
-  background: -webkit-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-  background: -moz-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-  background: -o-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-  background: -ms-linear-gradient(90deg, #0d0d0d 0%, #1a1a1a 100%);
-  background: linear-gradient(0deg, #0d0d0d 0%, #1a1a1a 100%);
+  background: -webkit-linear-gradient(90deg, #242424 0%, #333333 100%);
+  background: -moz-linear-gradient(90deg, #242424 0%, #333333 100%);
+  background: -o-linear-gradient(90deg, #242424 0%, #333333 100%);
+  background: -ms-linear-gradient(90deg, #242424 0%, #333333 100%);
+  background: linear-gradient(0deg, #242424 0%, #333333 100%);
   font-family: 'TradeGothicBold';
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -2370,10 +2370,17 @@ footer {
   left: 0;
   right: 0;
   z-index: 12;
+  background-size: 100% 100%;
   display: none;
 }
+.splash.win {
+  background: url(../images/win_splash.jpg);
+}
+.splash.loose {
+  background: url(../images/loose_splash.jpg);
+}
 .splash img {
-  min-width: 100%;
+  max-width: 100%;
   display: block;
 }
 

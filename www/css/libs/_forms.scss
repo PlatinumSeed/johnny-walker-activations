@@ -83,6 +83,10 @@ form {
 	width: 100%;
 }
 
+.check_box {
+	margin: 15px 0;
+}
+
 label.text {
 	@extend %label_base;
 	display: inline-block;
@@ -154,7 +158,7 @@ input[type="email"],
 input[type="url"],
 input[type="search"],
 input[type="tel"] {
-	padding: 23px 20px 13px 75px;
+	padding: 28px 20px 8px 75px;
 	@extend %input_base;
 	font-size: 28px;
 	color: #d6b77d;
@@ -168,11 +172,11 @@ input[type="tel"] {
 	}
 
 	.medium & {
-		padding: 23px 20px 13px 100px;
+		padding: 28px 20px 8px 100px;
 	}
 
 	.wide & {
-		padding: 23px 20px 13px 110px;
+		padding: 28px 20px 8px 120px;
 	}
 }
 

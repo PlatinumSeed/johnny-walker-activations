@@ -50,10 +50,11 @@ function contact(data, activation_id) {
     this.synced            = 0;
 };
 
-
+var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
 var app = {
     //Variables
+    menu_open: false,
     //Game 2 answer records
     answersCorrect: 0,
     answersIncorrect: 0,
@@ -123,7 +124,7 @@ var app = {
         });
 
         //Hide splash
-        $('.splash img').on('tap click', function(){
+        $('.splash').on('tap click', function(){
             EffecktPageTransitions.transitionPage( 'activation', 'slide-from-top', 'slide-to-bottom', 'endGame' );
             $('.splash').fadeOut(400);
         })
@@ -165,9 +166,11 @@ var app = {
         this.currentActivation = new activation(data);
         //Save in local DB
         this.storeActivation(this.currentActivation);
-        //Set venue of activation on front end
+        //Set venue and data of activation on front end
+        var date = new Date(this.currentActivation.date_time),
+            activationDate = date.getDate() + ' ' + monthNames[date.getMonth()] + ' ' + date.getFullYear();
         $('.activation_venue').html(this.currentActivation.venue);
-        $('.activation_date').html(this.currentActivation.date_time);
+        $('.activation_date').html(activationDate);
         //Set activation state to open
         this.currentActivation.activation_open = true;
         //Go to activation management page
@@ -259,7 +262,7 @@ var app = {
             that.initActivation();
             //Unset current activation
             delete that.currentActivation;
-            EffecktPageTransitions.transitionPage( 'new_activation', 'scale-up-from-behind', 'scale-up-to-front' );
+            EffecktPageTransitions.transitionPage( 'new_activation', 'slide-from-bottom', 'slide-to-top' );
             that.resetform('end_activation');
         });
     },
@@ -437,11 +440,13 @@ var app = {
     openMenu: function(event) {
         $('main').addClass('open');
         $('.menu_open').hide();
+        this.menu_open = true;
     },
     //Close Menu
     closeMenu: function(event) {
         $('main').removeClass('open');
         $('.menu_open').show();
+        this.menu_open = false;
     },
     //Form input label effect
     blurInputActive: function(event) {
@@ -470,6 +475,8 @@ var app = {
     initSortable: function() {
         $(".sortable").sortable({
             axis: 'x',
+            revert: true,
+            tolerance: "pointer",
             stop: function( event, ui ) {
                 $('.sortable_item').each(function(index, object) {
                     $('.order', this).html(index+1);
@@ -536,11 +543,41 @@ var app = {
         };
         //Hide menu for client facing pages
         if (page == 'new_activation' || page =='activation') {
-            $('.menu_open').show();
+            if (this.menu_open) {
+                $('.menu_close').show();
+            }
+            else {
+                $('.menu_open').show();
+            }
         }
         else {
             $('.menu_open').hide();
         };
+        //Hide end activation if on create new activation page
+        if (page == 'new_activation') {
+            $('.menu_end_activation').hide();
+        }
+        else {
+            $('.menu_end_activation').show();
+        }
+    },
+    cancelContact: function() {
+        EffecktPageTransitions.transitionPage( 'activation', 'slide-from-left', 'slide-to-right' );
+        this.resetform('details');
+    },
+    cancelEnd: function() {
+        EffecktPageTransitions.transitionPage( 'activation', 'slide-from-left', 'slide-to-right' );
+        this.resetform('end_activation');
+    },
+    closeReports: function() {
+        //Preven going back to activation page if it hasnt been created yet
+        if (typeof this.currentActivation === 'undefined') {
+            backToPage = 'new_activation';
+        }
+        else {
+            backToPage = 'activation'
+        }
+        EffecktPageTransitions.transitionPage( backToPage, 'slide-from-top', 'slide-to-bottom' );
     },
 
     //Game stuff
@@ -665,3 +702,74 @@ $.fn.randomize = function(childElem) {
   });    
 }
 })(jQuery);
+
+
+
+mcp_class = function () {
+  this.$sortableElements = {};
+};
+
+mcp_class.prototype.initPageEvents = function () {
+    var self = this;
+        
+    $("ul.sortableList").sortable({
+        revert:200,
+        axis: 'x',
+        connectWith:'.sortableList',
+        // Loop through and clone the elements
+        start:function(event,ui) {
+    
+            ui.helper.addClass("ui-helper");
+            
+            $("ul.ui-sortable li").each(function() {
+                    
+                if($(this).hasClass("ui-helper")) {
+                    return;
+                }
+
+                var clone = $(this).clone();
+
+                // Remember the item we were cloned from so we can animate to it later
+                clone.data("original", $(this));
+                clone.addClass("ui-cloned");
+
+                var pos = $(this).position();
+
+                clone.css({
+                    left : pos.left,
+                    top : pos.top
+                });
+                
+                $(this).parent().addClass("sorting").append(clone);                
+            });
+            
+            // Save the elements to memory so we can save lookups on change
+            self.$sortableElements = $("ul.ui-sortable li.ui-cloned");
+        
+            mcp.updateSortables();      
+        },
+        change: function(event, ui) {
+            mcp.updateSortables();         
+        },
+        stop : function(event, ui) {    
+        
+            // clean up by removing the added elements
+            $("ul.ui-sortable.sorting").removeClass("sorting");
+            $("ul.ui-sortable li.ui-cloned").remove(); 
+            $("ul li.ui-helper").removeClass("ui-helper");
+        }
+    });
+};
+
+mcp_class.prototype.updateSortables = function () {
+    this.$sortableElements.each(function() {    
+                  
+      var clone = $(this).data("original");                  
+      var pos = $(clone).position();
+                  
+      $(this).css({
+        left: pos.left,
+        top: pos.top
+      });
+    });  
+};

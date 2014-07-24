@@ -110,7 +110,7 @@
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text" for="Surname">
+                            <label class="text medium" for="Surname">
                                 <input type="text" name="last_name" value="" required autocomplete="off" />
                             </label>
                         </div>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="input_box--half">
                             <label class="text wide" for="Twitter Handle">
-                                <input type="text" name="twitter_handle" value="" required autocomplete="off" />
+                                <input type="text" name="twitter_handle" value="" autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
@@ -152,7 +152,7 @@
                             </div>
                         </div>
                         <button class="brown_button action" data-action="createContact">Let's play</button><br />
-                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancel</a>
+                        <a href="#" class="cancel_button action" data-action="cancelContact">Cancel</a>
                     </form>
                 </div>
             </section>
@@ -171,9 +171,9 @@
                             <div class="table_header__item">History</div>
                             <div class="table_header__item">Total Score</div>
                         </div>
-                        
                         <div class="table_body"></div>
                     </div>
+                    <button class="brown_button transition-button" data-effeckt-transition-in="slide-from-top"  data-effeckt-transition-out="slide-to-bottom" data-effeckt-transition-page="activation">Back</button>
                 </div>
             </section>
 
@@ -194,7 +194,7 @@
                             </label>
                         </div>
                         <button class="brown_button action" data-action="endActivation">End Activation</button><br />
-                        <a href="#" class="cancel_button transition-button" data-effeckt-transition-in="slide-from-left"  data-effeckt-transition-out="slide-to-right" data-effeckt-transition-page="activation">Cancel</a>
+                        <a href="#" class="cancel_button action" data-action="cancelEnd">Cancel</a>
                     </form>
                 </div>
             </section>
@@ -221,42 +221,42 @@
                     <ul class="game2_checkboxes">
                         <li class="open incorrect">
                             <div class="select_state"></div>
-                            <img src="images/game2_malt.jpg" height="162" width="162">
+                            <img src="images/game2_malt.jpg" height="164" width="164">
                             <span class="option_text">Malt</span>
                         </li>
                         <li class="open incorrect">
                             <div class="select_state"></div>
-                            <img src="images/game2_citrus.jpg" height="162" width="162">
+                            <img src="images/game2_citrus.jpg" height="164" width="164">
                             <span class="option_text">Citrus</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
-                            <img src="images/game2_oak.jpg" height="162" width="162">
+                            <img src="images/game2_oak.jpg" height="164" width="164">
                             <span class="option_text">Oak</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
-                            <img src="images/game2_spice.jpg" height="162" width="162">
+                            <img src="images/game2_spice.jpg" height="164" width="164">
                             <span class="option_text">Spice</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
-                            <img src="images/game2_nuts.jpg" height="162" width="162">
+                            <img src="images/game2_nuts.jpg" height="164" width="164">
                             <span class="option_text">Nuts</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
-                            <img src="images/game2_smoke.jpg" height="162" width="162">
+                            <img src="images/game2_smoke.jpg" height="164" width="164">
                             <span class="option_text">Smoke</span>
                         </li>
                         <li class="open incorrect">
                             <div class="select_state"></div>
-                            <img src="images/game2_caramel.jpg" height="162" width="162">
+                            <img src="images/game2_caramel.jpg" height="164" width="164">
                             <span class="option_text">Caramel</span>
                         </li>
                         <li class="open correct">
                             <div class="select_state"></div>
-                            <img src="images/game2_vanilla.jpg" height="162" width="162">
+                            <img src="images/game2_vanilla.jpg" height="164" width="164">
                             <span class="option_text">Vanilla</span>
                         </li>
                     </ul> 
@@ -322,8 +322,8 @@
             <footer></footer>    
         </main>
         
-        <div class="splash win"><img src="images/win_splash.jpg" /></div>  
-        <div class="splash loose"><img src="images/loose_splash.jpg" /></div>
+        <div class="splash win"></div>  
+        <div class="splash loose"></div>
 
         <script src="cordova.js"></script>
         <script src="js/jquery.min.js"></script>
