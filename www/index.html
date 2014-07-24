@@ -105,28 +105,28 @@
                     <h1>Enter your details</h1>
                     <form action="" class="details">
                         <div class="input_box--half">
-                            <label class="text" for="Name">
-                                <input type="text" name="first_name" value="" required  autocomplete="off" />
+                            <label class="text" for="Name*">
+                                <input type="text" name="first_name" value="" data-parsley-trigger="change" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text medium" for="Surname">
-                                <input type="text" name="last_name" value="" required autocomplete="off" />
+                            <label class="text medium" for="Surname*">
+                                <input type="text" name="last_name" value="" data-parsley-trigger="change" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text" for="Email">
-                                <input type="email" name="email" value="" required autocomplete="off" />
+                            <label class="text" for="Email*">
+                                <input type="email" name="email" value="" data-parsley-trigger="change" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
-                            <label class="text wide" for="Mobile Number">
-                                <input type="tel" name="mobile_number" value="" required autocomplete="off" />
+                            <label class="text wide" for="Mobile Number*">
+                                <input type="tel" name="mobile_number" value="" data-parsley-trigger="change" required autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
                             <label class="text wide" for="Twitter Handle">
-                                <input type="text" name="twitter_handle" value="" autocomplete="off" />
+                                <input type="text" name="twitter_handle" value="" data-parsley-trigger="change" autocomplete="off" />
                             </label>
                         </div>
                         <div class="input_box--half">
@@ -141,8 +141,8 @@
                         </div>
                         <div class="input_box--half">
                             <div class="check_box action" data-action="setCheck">
-                                <input type="checkbox" name="age_verify" value="yes">
-                                <label for="age_verify" class="checkbox" checked>I verify that I am over the legal drinking age for my country.</label>
+                                <input type="checkbox" name="age_verify" value="yes" data-parsley-trigger="change" required>
+                                <label for="age_verify" class="checkbox">I verify that I am over the legal drinking age for my country.*</label>
                             </div>
                         </div>
                         <div class="input_box--half">
@@ -151,6 +151,7 @@
                                 <label for="newsletter_signup" class="checkbox">I want to recieve future communication from Johnnie Walker.</label>
                             </div>
                         </div>
+                        <div class="clear"></div>
                         <button class="brown_button action" data-action="createContact">Let's play</button><br />
                         <a href="#" class="cancel_button action" data-action="cancelContact">Cancel</a>
                     </form>
@@ -201,8 +202,8 @@
 
             <section class="game" data-effeckt-page="game_1">
                 <div class="game_logo"></div>
-                <span class="game_title">Johnnie Red &amp; ginger challenge</span>
-                <span class="game_instructions">Make your Johnnie Red &amp; Ginger by dragging the ingredients into the correct order for a perfect serve!</span>
+                <span class="game_title">Johnnie Walker Red Label &amp; ginger challenge</span>
+                <span class="game_instructions">Make your Johnnie Walker Red Label &amp; Ginger by dragging the ingredients into the correct order for a perfect serve!</span>
                 <div class="game1_stage">  
                     <ul class="sortable">
                         <li id="gingerbeer" class="sortable_item image1"><span class="order">1</span></li>
@@ -215,8 +216,8 @@
 
             <section class="game" data-effeckt-page="game_2">
                 <div class="game_logo"></div>
-                <span class="game_title">Johnnie Red Taste Challenge</span>
-                <span class="game_instructions">Choose any 3 tastes or aromas that you think are present in Johnnie Walker Red.</span>
+                <span class="game_title">Johnnie Walker Red Label Taste Challenge</span>
+                <span class="game_instructions">Choose any 3 tastes or aromas that you think are present in Johnnie Walker Red Label.</span>
                 <div class="game2_stage">  
                     <ul class="game2_checkboxes">
                         <li class="open incorrect">
@@ -266,7 +267,7 @@
 
             <section class="game" data-effeckt-page="game_3">
                 <div class="game_logo"></div>
-                <span class="game_title">Johnnie Red history challenge</span>
+                <span class="game_title">Johnnie Walker Red Label history challenge</span>
                     <!-- slider -->
                     <div class='game3_stage cycle-slideshow'
                         data-cycle-fx="scrollHorz"

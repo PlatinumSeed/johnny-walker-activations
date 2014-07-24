@@ -120,15 +120,15 @@ var EffecktPageTransitions = {
   },
 
   //Callbacks here
-  initGame1: function() {
+  game_1: function() {
     $('body').addClass('game1');
   },
 
-  initGame2: function() {
+  game_2: function() {
     $('body').addClass('game2');
   },
 
-  initGame3: function() {
+  game_3: function() {
     $('body').addClass('game3');
   },
 

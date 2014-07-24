@@ -102,7 +102,7 @@ var app = {
         $(document.body).on('click', '.action', function(event) {
             event.preventDefault();
             event.stopPropagation();
-            $('form input, form textarea').blur();
+            $('input, textarea').blur();
             that[$(this).data('action')](event);
         });
 
@@ -123,11 +123,15 @@ var app = {
             $('#advance').hide(); 
         });
 
-        //Hide splash
-        $('.splash').on('tap click', function(){
-            EffecktPageTransitions.transitionPage( 'activation', 'slide-from-top', 'slide-to-bottom', 'endGame' );
-            $('.splash').fadeOut(400);
-        })
+        //Remove focus of text input when checkbox is clicked, prevents keyboard popping up
+        $('input').on('ifClicked', function(event){
+            $('input, textarea').blur();
+        });
+
+        //Removed error validation on age verify when checked
+        $('input[name="age_verify"]').on('ifChecked', function(event){
+            $('label[for="age_verify"]').removeClass('errorState');
+        });
     },
     // deviceready Event Handler
     //
@@ -191,11 +195,37 @@ var app = {
         });
     },
     createContact: function(event) {
-        var games = ['game_1', 'game_2', 'game_3'];
+        var games = ['game_1', 'game_2', 'game_3'],
+            weight = [0.2, 0.6, 0.2],
+            //Generate a weighted list of 100 items from which to select a random game
+            generateWeighedList = function(list, weight) {
+                var weighed_list = [];
+                // Loop over weights
+                for (var i = 0; i < weight.length; i++) {
+                    var multiples = weight[i] * 100;
+                    // Loop over the list of items
+                    for (var j = 0; j < multiples; j++) {
+                        weighed_list.push(list[i]);
+                    }
+                }
+                return weighed_list;
+            },
+            //generate random number
+            rand = function(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            },
+            weighed_list = generateWeighedList(games, weight),
+            //Get weighted random game key
+            randomGameKey = rand(0, weighed_list.length-1),
+            //Get weighted random game
+            weightedRandomGame = weighed_list[randomGameKey];
 
         $(event.currentTarget).parents('form').parsley('addListener', {
             onFieldError: function (elem) {
                 $(elem).parents('label').addClass('errorState');
+                if ($(elem).attr('type') == 'checkbox') {
+                    $('label[for="age_verify"]').addClass('errorState');
+                };
                 return false;
             },
             onFieldSuccess: function(elem) {
@@ -210,8 +240,7 @@ var app = {
         //Save to local DB
         this.storeContact();
         //Go to a random game
-        randomGameKey = Math.floor(Math.random()*games.length);
-        EffecktPageTransitions.transitionPage( games[randomGameKey], 'slide-from-bottom', 'slide-to-top', 'initGame'+(randomGameKey+1) );
+        EffecktPageTransitions.transitionPage( weightedRandomGame, 'slide-from-bottom', 'slide-to-top', weightedRandomGame );
     },
     storeContact: function() {
         var that = this;
@@ -461,6 +490,7 @@ var app = {
     },
     //Set the checkbox to checked when parent box is tapped
     setCheck: function(event) {
+        event.preventDefault();
         var target = event.target;
 
         if (target.localName == 'div') {
@@ -569,6 +599,16 @@ var app = {
         EffecktPageTransitions.transitionPage( 'activation', 'slide-from-left', 'slide-to-right' );
         this.resetform('end_activation');
     },
+    closeReports: function() {
+        //Preven going back to activation page if it hasnt been created yet
+        if (typeof this.currentActivation === 'undefined') {
+            backToPage = 'new_activation';
+        }
+        else {
+            backToPage = 'activation'
+        }
+        EffecktPageTransitions.transitionPage( backToPage, 'slide-from-top', 'slide-to-bottom' );
+    },
 
     //Game stuff
     //----------------------------------------------------------------------------------------------------------------------
@@ -588,14 +628,14 @@ var app = {
             this.currentActivation.game1_total++;
             this.currentActivation.game1_wins++;
             this.currentContact.game_result = 'won';
-            $('.splash.win').fadeIn();
+            this.showSplash('win');
         }
         else {
             //You loose
             console.log('Done with game 1, you loose');
             this.currentActivation.game1_total++;
             this.currentContact.game_result = 'lost';
-            $('.splash.loose').fadeIn();
+            this.showSplash('loose');
         };
         this.updateGameResults('1');
     },
@@ -612,7 +652,7 @@ var app = {
                     that.currentActivation.game2_wins++;
                     that.currentContact.game_result = 'won';
                     that.updateGameResults('2');
-                    $('.splash.win').fadeIn();
+                    that.showSplash('win');
                 }
             }
             if ($(this).hasClass('incorrect')) {
@@ -625,7 +665,7 @@ var app = {
                     that.currentActivation.game2_total++;
                     that.currentContact.game_result = 'lost';
                     that.updateGameResults('2');
-                    $('.splash.loose').fadeIn();
+                    that.showSplash('loose');
                 }
             }   
         }
@@ -644,19 +684,29 @@ var app = {
             this.currentActivation.game3_total++;
             this.currentActivation.game3_wins++;
             this.currentContact.game_result = 'won';
-            $('.splash.win').fadeIn();
+            this.showSplash('win');
         }
         else {
             //You loose
             console.log('Done with game 3, you loose');
             this.currentActivation.game3_total++;
             this.currentContact.game_result = 'lost';
-            $('.splash.loose').fadeIn();
+            this.showSplash('loose');
         };
         this.updateGameResults('3');
+    },
+    showSplash: function(type) { //Show the splash screen for 5 seconds then hide
+        if (type == 'loose') {
+            target = $('.splash.loose');
+        }
+        else if (type == 'win') {
+            target = $('.splash.win');
+        };
+        target.fadeIn(400, function(){
+            EffecktPageTransitions.transitionPage( 'activation', 'slide-from-top', 'slide-to-bottom', 'endGame' );
+        }).delay(5000).fadeOut(400);
     }
 };
-
 
 //Serialize form input
 $.fn.serializeFormJSON = function() {
@@ -692,74 +742,3 @@ $.fn.randomize = function(childElem) {
   });    
 }
 })(jQuery);
-
-
-
-mcp_class = function () {
-  this.$sortableElements = {};
-};
-
-mcp_class.prototype.initPageEvents = function () {
-    var self = this;
-        
-    $("ul.sortableList").sortable({
-        revert:200,
-        axis: 'x',
-        connectWith:'.sortableList',
-        // Loop through and clone the elements
-        start:function(event,ui) {
-    
-            ui.helper.addClass("ui-helper");
-            
-            $("ul.ui-sortable li").each(function() {
-                    
-                if($(this).hasClass("ui-helper")) {
-                    return;
-                }
-
-                var clone = $(this).clone();
-
-                // Remember the item we were cloned from so we can animate to it later
-                clone.data("original", $(this));
-                clone.addClass("ui-cloned");
-
-                var pos = $(this).position();
-
-                clone.css({
-                    left : pos.left,
-                    top : pos.top
-                });
-                
-                $(this).parent().addClass("sorting").append(clone);                
-            });
-            
-            // Save the elements to memory so we can save lookups on change
-            self.$sortableElements = $("ul.ui-sortable li.ui-cloned");
-        
-            mcp.updateSortables();      
-        },
-        change: function(event, ui) {
-            mcp.updateSortables();         
-        },
-        stop : function(event, ui) {    
-        
-            // clean up by removing the added elements
-            $("ul.ui-sortable.sorting").removeClass("sorting");
-            $("ul.ui-sortable li.ui-cloned").remove(); 
-            $("ul li.ui-helper").removeClass("ui-helper");
-        }
-    });
-};
-
-mcp_class.prototype.updateSortables = function () {
-    this.$sortableElements.each(function() {    
-                  
-      var clone = $(this).data("original");                  
-      var pos = $(clone).position();
-                  
-      $(this).css({
-        left: pos.left,
-        top: pos.top
-      });
-    });  
-};
