@@ -55,9 +55,7 @@ var monthNames = [ "January", "February", "March", "April", "May", "June", "July
 var app = {
     //Variables
     menu_open: false,
-    //Game 2 answer records
-    answersCorrect: 0,
-    answersIncorrect: 0,
+    //Game 2 state
     game2Active: true,
     //API
     api_url: 'http://jwserver.platinumseed.com/api/v1',
@@ -79,6 +77,9 @@ var app = {
         
         //Custom Checkboxes
         $('input').iCheck();
+
+        //Init Form Calidation
+        this.initValidation();
 
         //Game 1 Sortable
         this.initSortable();
@@ -130,7 +131,7 @@ var app = {
 
         //Removed error validation on age verify when checked
         $('input[name="age_verify"]').on('ifChecked', function(event){
-            $('label[for="age_verify"]').removeClass('errorState');
+            $('label[for="age_verify"]').attr('id', '');
         });
     },
     // deviceready Event Handler
@@ -152,21 +153,8 @@ var app = {
         tx.executeSql('CREATE TABLE IF NOT EXISTS activations( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, venue TEXT NOT NULL, date_time TEXT NOT NULL, attendance INTEGER, additional_comments TEXT, game1_total INTEGER, game1_wins INTEGER, game2_total INTEGER, game2_wins INTEGER, game3_total INTEGER,  game3_wins INTEGER, synced INTEGER, device_id VARCHAR)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS contacts ( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, first_name TEXT NOT NULL, last_name TEXT NOT NULL, email TEXT NOT NULL, mobile_number TEXT NOT NULL, gender TEXT NOT NULL, twitter_handle TEXT, newsletter_signup TEXT, activation_id INTEGER, game_result TEXT, synced INTEGER, device_id VARCHAR)');
     },
-    createActivation: function(event){
-        //Validation
-        $(event.currentTarget).parents('form').parsley('addListener', {
-            onFieldError: function (elem) {
-                $(elem).parents('label').addClass('errorState');
-                return false;
-            },
-            onFieldSuccess: function(elem) {
-                $(elem).parents('label').removeClass('errorState');
-            }
-        });
-        if(!$(event.currentTarget).parents('form').parsley('validate')) {
-            return false;
-        }
-        var data = $(event.currentTarget).parents('form').serializeFormJSON();
+    createActivation: function(event){  
+        var data = $(event.currentTarget).serializeFormJSON();
         this.currentActivation = new activation(data);
         //Save in local DB
         this.storeActivation(this.currentActivation);
@@ -196,7 +184,7 @@ var app = {
     },
     createContact: function(event) {
         var games = ['game_1', 'game_2', 'game_3'],
-            weight = [0.2, 0.6, 0.2],
+            weight = [0.6, 0.2, 0.2],
             //Generate a weighted list of 100 items from which to select a random game
             generateWeighedList = function(list, weight) {
                 var weighed_list = [];
@@ -220,22 +208,7 @@ var app = {
             //Get weighted random game
             weightedRandomGame = weighed_list[randomGameKey];
 
-        $(event.currentTarget).parents('form').parsley('addListener', {
-            onFieldError: function (elem) {
-                $(elem).parents('label').addClass('errorState');
-                if ($(elem).attr('type') == 'checkbox') {
-                    $('label[for="age_verify"]').addClass('errorState');
-                };
-                return false;
-            },
-            onFieldSuccess: function(elem) {
-                $(elem).parents('label').removeClass('errorState');
-            }
-        });
-        if(!$(event.currentTarget).parents('form').parsley('validate')) {
-            return false;
-        }
-        var data = $(event.currentTarget).parents('form').serializeFormJSON();
+        var data = $(event.currentTarget).serializeFormJSON();
         this.currentContact = new contact(data, this.currentActivation.id);
         //Save to local DB
         this.storeContact();
@@ -268,20 +241,6 @@ var app = {
     },
     endActivation: function(event) {
         var that = this;
-
-        $(event.currentTarget).parents('form').parsley('addListener', {
-            onFieldError: function (elem) {
-                $(elem).parents('label').addClass('errorState');
-                return false;
-            },
-            onFieldSuccess: function(elem) {
-                $(elem).parents('label').removeClass('errorState');
-            }
-        });
-        if(!$(event.currentTarget).parents('form').parsley('validate')) {
-            return false;
-        }
-
         var data = $(event.currentTarget).parents('form').serializeFormJSON(),
             sqlStatement  = 'UPDATE activations SET attendance="'+data.attendance+'", additional_comments="'+data.additional_comments+'" WHERE id='+this.currentActivation.id
 
@@ -411,9 +370,12 @@ var app = {
     resetform: function(form_class) { //Reset the form (specified by form_class) values
         $("."+form_class+" input, ."+form_class+" textarea").each(function(){
             $(this).val('');
-            if ($(this).attr('type') == 'checkbox' || $(this).attr('type') == 'radio') {
+            if ($(this).attr('type') == 'checkbox') {
                 $(this).iCheck('uncheck');
             }
+            //Removed previous validation error states
+            $('.errorState').removeClass('errorState');
+            $('#errorState').attr('id', '');
         })
     },
     resetGame: function(game_number) { //Reset game input
@@ -464,6 +426,47 @@ var app = {
         var time = ('0' + currentdate.getHours()).slice(-2)+':'+('0' + currentdate.getMinutes()).slice(-2);
         $('input[name="date"]').val(date);
         $('input[name="time"]').val(time);
+    },
+    //Validation
+    initValidation: function() {
+        $('form').validate({
+            onChange: true,
+            sendForm: false,
+            valid: function(event, options) {
+                console.log('valid form');
+                var formAction = $(this).data('form-action');
+                that[formAction](event);
+            },
+            eachInvalidField: function(event, status, options) {
+                if ($(this).attr('type') == 'checkbox') {
+                    $('.age_verify_label').attr('id', 'errorState');
+                    //console.log('check error');
+                }
+                else {
+                    $(this).parents('label').addClass('errorState');
+                }
+            },
+            eachValidField: function(event, status, options){
+                if ($(this).attr('type') == 'checkbox') {
+                    $('label[for="age_verify"]').removeClass('errorState');
+                }
+                else {
+                    $(this).parents('label').removeClass('errorState');
+                }
+            }
+        });
+
+        //Extra validation rules
+        jQuery.validateExtend({
+            email : {
+                required : true,
+                pattern : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            },
+            digit : {
+                required : true,
+                pattern : /^[0-9]*$/
+            }
+        });
     },
     //Open Menu
     openMenu: function(event) {
@@ -533,7 +536,8 @@ var app = {
         for (i = 0; i < len; i++) {
             total_entries = activations.rows.item(i).game1_total + activations.rows.item(i).game2_total + activations.rows.item(i).game3_total;
             total_wins = activations.rows.item(i).game1_wins + activations.rows.item(i).game2_wins + activations.rows.item(i).game3_wins;
-            activations_html += '<div class="table_row"><div class="table_row__item">'+activations.rows.item(i).venue+'</div><div class="table_row__item">'+activations.rows.item(i).attendance+'</div><div class="table_row__item">'+total_entries+'</div><div class="table_row__item">'+activations.rows.item(i).game1_wins+'/'+activations.rows.item(i).game1_total+'</div><div class="table_row__item">'+activations.rows.item(i).game2_wins+'/'+activations.rows.item(i).game2_total+'</div><div class="table_row__item">'+activations.rows.item(i).game3_wins+'/'+activations.rows.item(i).game3_total+'</div><div class="table_row__item">'+total_wins+'/'+total_entries+'</div></div>';
+            activationDate = activations.rows.item(i).date_time.substring(0, 10);
+            activations_html += '<div class="table_row"><div class="table_row__item">'+activations.rows.item(i).venue+'('+activationDate+')</div><div class="table_row__item">'+activations.rows.item(i).attendance+'</div><div class="table_row__item">'+total_entries+'</div><div class="table_row__item">'+activations.rows.item(i).game1_wins+'/'+activations.rows.item(i).game1_total+'</div><div class="table_row__item">'+activations.rows.item(i).game2_wins+'/'+activations.rows.item(i).game2_total+'</div><div class="table_row__item">'+activations.rows.item(i).game3_wins+'/'+activations.rows.item(i).game3_total+'</div><div class="table_row__item">'+total_wins+'/'+total_entries+'</div></div>';
         }
 
         $('.table_body').html(activations_html);
@@ -567,9 +571,11 @@ var app = {
         //Hide sync button if activation is active
         if (typeof this.currentActivation === 'undefined') {
             $('.menu_sync').show()
+            $('.menu_end_activation').hide();
         }
         else {
             $('.menu_sync').hide();
+            $('.menu_end_activation').show();
         };
         //Hide menu for client facing pages
         if (page == 'new_activation' || page =='activation') {
@@ -583,13 +589,7 @@ var app = {
         else {
             $('.menu_open').hide();
         };
-        //Hide end activation if on create new activation page
-        if (page == 'new_activation') {
-            $('.menu_end_activation').hide();
-        }
-        else {
-            $('.menu_end_activation').show();
-        }
+
     },
     cancelContact: function() {
         EffecktPageTransitions.transitionPage( 'activation', 'slide-from-left', 'slide-to-right' );
@@ -641,33 +641,31 @@ var app = {
     },
     submitGame2: function() {
         if (that.game2Active) {
-            if ($(this).hasClass('correct')) {
-                $(this).addClass('checked').removeClass('open');
-                that.answersCorrect++;
-                if (that.answersCorrect == 3) {
-                    //Win
-                    that.game2Active = false;
-                    console.log('Done with game 2, you won');
-                    that.currentActivation.game2_total++;
-                    that.currentActivation.game2_wins++;
-                    that.currentContact.game_result = 'won';
-                    that.updateGameResults('2');
-                    that.showSplash('win');
-                }
+            $(this).addClass('checked').removeClass('open');
+            console.log('correct: '+ $('.checked.correct').length);
+            console.log('incorrect: '+ $('.checked.incorrect').length);
+            correctCount = $('.checked.correct').length;
+            incorrectCount = $('.checked.incorrect').length
+
+            //Win
+            if (correctCount == 3) {
+                that.game2Active = false;
+                console.log('Done with game 2, you won');
+                that.currentActivation.game2_total++;
+                that.currentActivation.game2_wins++;
+                that.currentContact.game_result = 'won';
+                that.updateGameResults('2');
+                that.showSplash('win');
             }
-            if ($(this).hasClass('incorrect')) {
-                $(this).addClass('checked').removeClass('open');
-                that.answersIncorrect++
-                if (that.answersIncorrect == 2) {
-                    //Lose
-                    that.game2Active = false;
-                    console.log('Done with game 2, you loose');
-                    that.currentActivation.game2_total++;
-                    that.currentContact.game_result = 'lost';
-                    that.updateGameResults('2');
-                    that.showSplash('loose');
-                }
-            }   
+            //Lose
+            if (incorrectCount == 2) {                    
+                that.game2Active = false;
+                console.log('Done with game 2, you loose');
+                that.currentActivation.game2_total++;
+                that.currentContact.game_result = 'lost';
+                that.updateGameResults('2');
+                that.showSplash('loose');
+            }
         }
     },
     submitGame3: function() {

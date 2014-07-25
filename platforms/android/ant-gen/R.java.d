@@ -1,5 +1,6 @@
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/ant-gen/com/platinumseed/jwactivations/R.java \
  : /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/res/drawable/icon.png \
+/media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/res/drawable/jwicon.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/res/drawable-hdpi/icon.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/res/drawable-land-hdpi/screen.png \
 /media/ntfs/mysites/johnny-walker-sales-app/jwactivation/platforms/android/res/drawable-land-ldpi/screen.png \
