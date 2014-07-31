@@ -1,12 +1,12 @@
-/* ::Johnny Walker Red Sales Actition App  */
+/* ::Johnnie Walker Red Sales Actition App  */
 /* ----------------------------------------------------------- */
 
 //Init the database
 var database = {
     database: null,
-    name: 'JohnnyWalkerRedActivation',
+    name: 'JohnnieWalkerRedActivation',
     version: '1.0',
-    displayName: 'Johnny Walker Red Activations',
+    displayName: 'Johnnie Walker Red Activations',
     size: 200000,
     init: function() {
         var _this = window.openDatabase(this.name, this.version, this.displayName, this.size);
@@ -209,6 +209,9 @@ var app = {
             weightedRandomGame = weighed_list[randomGameKey];
 
         var data = $(event.currentTarget).serializeFormJSON();
+        if (data.newsletter_signup != 'yes') {
+            data.newsletter_signup = 'no';
+        }
         this.currentContact = new contact(data, this.currentActivation.id);
         //Save to local DB
         this.storeContact();
@@ -241,9 +244,8 @@ var app = {
     },
     endActivation: function(event) {
         var that = this;
-        var data = $(event.currentTarget).parents('form').serializeFormJSON(),
-            sqlStatement  = 'UPDATE activations SET attendance="'+data.attendance+'", additional_comments="'+data.additional_comments+'" WHERE id='+this.currentActivation.id
-
+        var data = $(event.currentTarget).serializeFormJSON(),
+            sqlStatement  = 'UPDATE activations SET attendance="'+data.attendance+'", additional_comments="'+data.additional_comments+'" WHERE id='+this.currentActivation.id;
         db.transaction(function(tx){
             tx.executeSql(sqlStatement);
         }, that.errorDB, function(){
@@ -369,9 +371,15 @@ var app = {
     //----------------------------------------------------------------------------------------------------------------------
     resetform: function(form_class) { //Reset the form (specified by form_class) values
         $("."+form_class+" input, ."+form_class+" textarea").each(function(){
-            $(this).val('');
             if ($(this).attr('type') == 'checkbox') {
                 $(this).iCheck('uncheck');
+            }
+            else if ($(this).attr('type') == 'radio') {
+                $(this).iCheck('uncheck');
+                $('input.male_check').iCheck('check').val('male');
+            }
+            else {
+                $(this).val('');
             }
             //Removed previous validation error states
             $('.errorState').removeClass('errorState');

@@ -2015,7 +2015,7 @@ section .content {
 }
 .activation_reports .table_body {
   overflow-y: scroll;
-  max-height: 320px;
+  max-height: 178px;
 }
 .activation_reports .table_body .table_row {
   background: #242424;

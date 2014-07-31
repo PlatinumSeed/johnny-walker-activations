@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.platinumseed.jwactivations" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Johnny Walker Activations</name>
+    <name>Johnnie Walker Activations</name>
     <description>
-        This app records activations for Johnny Walker Red at events, allowing participents to play one of 3 games randomly selected, in order to win prizes
+        This app records activations for Johnnie Walker Red at events, allowing participents to play one of 3 games randomly selected, in order to win prizes
     </description>
     <author email="riaan@platinumseed.com" href="http://www.platinumseed.com">
         Platinum Seed

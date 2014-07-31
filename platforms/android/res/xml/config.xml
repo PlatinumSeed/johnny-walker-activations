@@ -8,9 +8,9 @@
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
-    <name>Johnny Walker Activations</name>
+    <name>Johnnie Walker Activations</name>
     <description>
-        This app records activations for Johnny Walker Red at events, allowing participents to play one of 3 games randomly selected, in order to win prizes
+        This app records activations for Johnnie Walker Red at events, allowing participents to play one of 3 games randomly selected, in order to win prizes
     </description>
     <author email="riaan@platinumseed.com" href="http://www.platinumseed.com">
         Platinum Seed
